@@ -1,4 +1,4 @@
-import {CHANGE_MEASURES, CHANGE_MEASURES_WEIGHT, CHANGE_GOAL_WEIGHTS, SET_WEIGHTS} from '../actionType'
+import {CHANGE_MEASURES, CHANGE_MEASURES_WEIGHT, CHANGE_GOAL_WEIGHTS} from '../actionType'
 
 const Init_State = {
     hab: {
@@ -54,10 +54,6 @@ const weightsReducer = (state=Init_State, action) =>{
                     ...state[action.goal],
                     weight: action.value
                 }
-            }
-        case SET_WEIGHTS:
-            return {
-                ...action.data
             }
         default:
             return state;

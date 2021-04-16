@@ -5,7 +5,7 @@ import './main.css';
 import Select from 'react-select';
 import {useDispatch,useSelector} from 'react-redux';
 import {changeMeasures,changeMeasuresWeight,changeGoalWeights} from './action';
-import axios from 'axios';
+
 
 
 
@@ -18,8 +18,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
     const handleShow = () => setShow(true);
 
 	const [ radioValue, setRadioValue ] = useState('SCA');
-	const weights =  useSelector(state => state.weights);
-	const user = useSelector(state=>state.user)
+    const weights =  useSelector(state => state.weights)
 
 	const handleChange = (value, name, label, type) => {	
 		dispatch(changeMeasuresWeight(value,name, label, type))
@@ -28,13 +27,6 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 	const handleWeights = (value, goal) =>{
 		const newValue = Number(value)> 100 ? 100 : Number(value);
 		dispatch(changeGoalWeights(newValue, goal))
-	}
-
-	function isEmpty(obj) {
-		for (var key in obj) {
-			if (obj.hasOwnProperty(key)) return false;
-		}
-		return true;
 	}
     return (
         <div id="sidebar" className={activeSidebar ? 'active' : ''}>
@@ -103,7 +95,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										]}
 										isMulti
 										isClearable={false}
-										placeholder="Select habitat measures..."
+										placeholder="Select Habitat measures..."
 										name="colors"
 										value={weights.hab.selected}
 										onChange={(selectedOption) => {
@@ -223,7 +215,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										options={[
 											{ value: 'wq1', label: "Impaired Watershed Area -- EPA '303(d)' list " },
 											{ value: 'wq2', label: 'Stream Abundance' },
-											{ value: 'wq3', label: 'Hydrologic Response to Land-use' }
+											{ value: 'wq3', label: 'Hydrologic Response to Land-Use Change' }
 										]}
 										isMulti
 										placeholder="Select Water Quality & Quantity measures..."
@@ -358,7 +350,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 											{ value: 'lcmr4', label: 'Light Pollution Index  ' }
 										]}
 										isMulti
-										placeholder="Select Living Costal & Marine Resources measures..."
+										placeholder="Select Living Coastal & Marine Resources measures..."
 										name="colors"
 										className="basic-multi-select"
 										classNamePrefix="select"
@@ -932,7 +924,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 											return (
 												<tr key={idx}>
 													<td>{goal}</td>
-													<td>{Object.values(weights)[idx].weight}</td>
+													<td>{Object.values(weights)[idx].weight}%</td>
 												</tr>
 											)
 										})}
@@ -948,15 +940,30 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 												'low':0.33
 											}
 											
+											// const intermediate=	Object.entries(weights)
+											// 		.filter(goal=>goal[1].weight!==0)
+											// 		.map(goal=>
+											// 			['*',goal[1].weight/100,["+", 
+											// 				goal[1].selected.map(measure=>{
+											// 					if(measure.utility==='1'){
+											// 						console.log( ['*',weightList[measure.weight],['number',['get', measure.value]]])
+											// 						return ['*',weightList[measure.weight],['number',['get', measure.value]]]
+											// 					}else{
+											// 						return ['+',1, ['*',-1*weightList[measure.weight],['number',['get', measure.value]]]]
+											// 					}
+											// 				})
+											// 			]]
+											// 		);
 											const intermediate = Object.entries(weights).filter(goal=>goal[1].weight!==0)
 																	.map(goal=>['*',goal[1].weight/100,
 																	                ["/",["+",0, ...goal[1].selected.map(measure=>{
 																							if(measure.utility==='1'){
+																								console.log( ['*',weightList[measure.weight],['number',['get', measure.value]]])
 																								return ['*',weightList[measure.weight],['number',['get', measure.value]]]
 																							}else{
 																								return ['+',1, ['*',-1*weightList[measure.weight],['number',['get', measure.value]]]]
 																							}
-																					})],goal[1].selected.reduce(function(a,b){return (a+weightList[b.weight])},0)]
+																					})],goal[1].selected.length]
 																	]);
 											const newData = [
 												"step", 
@@ -977,17 +984,10 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 											setActiveSidebar(false);
 											
 										}
-										async function updateWeights(){
-											const response = await axios.post('https://sca-auth.herokuapp.com/api/user/weights',{username: user.username,weights:JSON.stringify(weights), _token: user.token});
-											console.log(response)
-										}
 										if(Object.values(weights).reduce((a,b)=>{return a+b.weight},0)!==100){
 											handleShow()
 										}else{
-											calculateNewData();
-											if(!isEmpty(user)){
-												updateWeights();
-											}
+										    calculateNewData();
 										}
 										
 									}}>Generate Visualization</Button>
