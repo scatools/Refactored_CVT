@@ -47,7 +47,9 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 								Geographic Scale:
 							</Accordion.Toggle>
 							<Accordion.Collapse eventKey="0">
+								
 								<Card.Body>
+								<h6>Welcome to Conservation visualization tool! This tool provides region-wide visualization based on data measure selected.</h6>
 									<ButtonGroup toggle className="mb-2">
 										<ToggleButton
 											type="radio"
@@ -210,12 +212,12 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 									<br />
 									<span>Water Quality & Quantity:</span>
 									<Select
-										styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+										styles={{ menuPortal: (base, state) => ({ ...base, zIndex: 9999 }) }}
 										menuPortalTarget={document.body}
 										options={[
-											{ value: 'wq1', label: "Impaired Watershed Area -- EPA '303(d)' list " },
-											{ value: 'wq2', label: 'Stream Abundance' },
-											{ value: 'wq3', label: 'Hydrologic Response to Land-Use Change' }
+											{ value: 'wq1', type: 'checkbox', label: "Impaired Watershed Area -- EPA '303(d)' list " },
+											{ value: 'wq2', type: 'checkbox', label: 'Stream Abundance' },
+											{ value: 'wq3', type: 'checkbox', label: 'Hydrologic Response to Land-Use Change' }
 										]}
 										isMulti
 										placeholder="Select Water Quality & Quantity measures..."
@@ -333,7 +335,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 											</div>
 										))}
 									<br />
-									<span>Living Costal & Marine Resources:</span>
+									<span>Living Coastal & Marine Resources:</span>
 									<Select
 										styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
 										menuPortalTarget={document.body}
@@ -775,7 +777,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
                                     }
 									{weights.lcmr.selected &&
 									    (<>
-										<span>Living Costal & Marine Resources:</span>
+										<span>Living Coastal & Marine Resources:</span>
 										<Form.Group as={Row}>
 										<Col xs="9">
 												<RangeSlider
