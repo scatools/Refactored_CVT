@@ -5,9 +5,8 @@ import './main.css';
 import Select from 'react-select';
 import {useDispatch,useSelector} from 'react-redux';
 import {changeMeasures,changeMeasuresWeight,changeGoalWeights} from './action';
-
-
-
+import { MdPermDeviceInformation } from 'react-icons/md';
+import { GoInfo } from 'react-icons/go';
 
 const RESTOREGoal = ['Habitat', 'Water Quality & Quantity', 'Living Coastal & Marine Resources','Community Resilience','Gulf Economy']
 
@@ -22,8 +21,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 
 	const handleChange = (value, name, label, type) => {	
 		dispatch(changeMeasuresWeight(value,name, label, type))
-	};
-
+	};	  
 	const handleWeights = (value, goal) =>{
 		const newValue = Number(value)> 100 ? 100 : Number(value);
 		dispatch(changeGoalWeights(newValue, goal))
@@ -720,7 +718,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 												</ButtonGroup>
 											</div>
 										))}
-									<br />
+										<br />
 									<Accordion.Toggle eventKey="2" as={Button} variant="dark">
 										Next
 									</Accordion.Toggle>
@@ -856,8 +854,8 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
                                         <tr>
                                           <th>Measure Name</th>
 										  <th>Goal Related</th>
-                                          <th>Utility</th>
-                                          <th>Weights</th>
+                                          <th>Utility <MdPermDeviceInformation /> </th>
+                                          <th>Weights <GoInfo /> </th>
                                         </tr>
                                     </thead>
 									<tbody>
