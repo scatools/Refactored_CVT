@@ -5,9 +5,8 @@ import './main.css';
 import Select from 'react-select';
 import {useDispatch,useSelector} from 'react-redux';
 import {changeMeasures,changeMeasuresWeight,changeGoalWeights} from './action';
-import axios from 'axios';
-
-
+import { MdPermDeviceInformation } from 'react-icons/md';
+import { GoInfo } from 'react-icons/go';
 
 const RESTOREGoal = ['Habitat', 'Water Quality & Quantity', 'Living Coastal & Marine Resources','Community Resilience','Gulf Economy']
 
@@ -18,23 +17,14 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
     const handleShow = () => setShow(true);
 
 	const [ radioValue, setRadioValue ] = useState('SCA');
-	const weights =  useSelector(state => state.weights);
-	const user = useSelector(state=>state.user)
+    const weights =  useSelector(state => state.weights)
 
 	const handleChange = (value, name, label, type) => {	
 		dispatch(changeMeasuresWeight(value,name, label, type))
-	};
-
+	};	  
 	const handleWeights = (value, goal) =>{
 		const newValue = Number(value)> 100 ? 100 : Number(value);
 		dispatch(changeGoalWeights(newValue, goal))
-	}
-
-	function isEmpty(obj) {
-		for (var key in obj) {
-			if (obj.hasOwnProperty(key)) return false;
-		}
-		return true;
 	}
     return (
         <div id="sidebar" className={activeSidebar ? 'active' : ''}>
@@ -55,7 +45,9 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 								Geographic Scale:
 							</Accordion.Toggle>
 							<Accordion.Collapse eventKey="0">
+								
 								<Card.Body>
+								<h6>Welcome to Conservation visualization tool! This tool provides region-wide visualization based on data measure selected.</h6>
 									<ButtonGroup toggle className="mb-2">
 										<ToggleButton
 											type="radio"
@@ -103,7 +95,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										]}
 										isMulti
 										isClearable={false}
-										placeholder="Select habitat measures..."
+										placeholder="Select Habitat measures..."
 										name="colors"
 										value={weights.hab.selected}
 										onChange={(selectedOption) => {
@@ -218,12 +210,12 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 									<br />
 									<span>Water Quality & Quantity:</span>
 									<Select
-										styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+										styles={{ menuPortal: (base, state) => ({ ...base, zIndex: 9999 }) }}
 										menuPortalTarget={document.body}
 										options={[
-											{ value: 'wq1', label: "Impaired Watershed Area -- EPA '303(d)' list " },
-											{ value: 'wq2', label: 'Stream Abundance' },
-											{ value: 'wq3', label: 'Hydrologic Response to Land-use' }
+											{ value: 'wq1', type: 'checkbox', label: "Impaired Watershed Area -- EPA '303(d)' list " },
+											{ value: 'wq2', type: 'checkbox', label: 'Stream Abundance' },
+											{ value: 'wq3', type: 'checkbox', label: 'Hydrologic Response to Land-Use Change' }
 										]}
 										isMulti
 										placeholder="Select Water Quality & Quantity measures..."
@@ -341,7 +333,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 											</div>
 										))}
 									<br />
-									<span>Living Costal & Marine Resources:</span>
+									<span>Living Coastal & Marine Resources:</span>
 									<Select
 										styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
 										menuPortalTarget={document.body}
@@ -358,7 +350,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 											{ value: 'lcmr4', label: 'Light Pollution Index  ' }
 										]}
 										isMulti
-										placeholder="Select Living Costal & Marine Resources measures..."
+										placeholder="Select Living Coastal & Marine Resources measures..."
 										name="colors"
 										className="basic-multi-select"
 										classNamePrefix="select"
@@ -726,7 +718,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 												</ButtonGroup>
 											</div>
 										))}
-									<br />
+										<br />
 									<Accordion.Toggle eventKey="2" as={Button} variant="dark">
 										Next
 									</Accordion.Toggle>
@@ -783,7 +775,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
                                     }
 									{weights.lcmr.selected &&
 									    (<>
-										<span>Living Costal & Marine Resources:</span>
+										<span>Living Coastal & Marine Resources:</span>
 										<Form.Group as={Row}>
 										<Col xs="9">
 												<RangeSlider
@@ -862,8 +854,8 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
                                         <tr>
                                           <th>Measure Name</th>
 										  <th>Goal Related</th>
-                                          <th>Utility</th>
-                                          <th>Weights</th>
+                                          <th>Utility <MdPermDeviceInformation /> </th>
+                                          <th>Weights <GoInfo /> </th>
                                         </tr>
                                     </thead>
 									<tbody>
@@ -932,7 +924,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 											return (
 												<tr key={idx}>
 													<td>{goal}</td>
-													<td>{Object.values(weights)[idx].weight}</td>
+													<td>{Object.values(weights)[idx].weight}%</td>
 												</tr>
 											)
 										})}
@@ -948,15 +940,30 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 												'low':0.33
 											}
 											
+											// const intermediate=	Object.entries(weights)
+											// 		.filter(goal=>goal[1].weight!==0)
+											// 		.map(goal=>
+											// 			['*',goal[1].weight/100,["+", 
+											// 				goal[1].selected.map(measure=>{
+											// 					if(measure.utility==='1'){
+											// 						console.log( ['*',weightList[measure.weight],['number',['get', measure.value]]])
+											// 						return ['*',weightList[measure.weight],['number',['get', measure.value]]]
+											// 					}else{
+											// 						return ['+',1, ['*',-1*weightList[measure.weight],['number',['get', measure.value]]]]
+											// 					}
+											// 				})
+											// 			]]
+											// 		);
 											const intermediate = Object.entries(weights).filter(goal=>goal[1].weight!==0)
 																	.map(goal=>['*',goal[1].weight/100,
 																	                ["/",["+",0, ...goal[1].selected.map(measure=>{
 																							if(measure.utility==='1'){
+																								console.log( ['*',weightList[measure.weight],['number',['get', measure.value]]])
 																								return ['*',weightList[measure.weight],['number',['get', measure.value]]]
 																							}else{
 																								return ['+',1, ['*',-1*weightList[measure.weight],['number',['get', measure.value]]]]
 																							}
-																					})],goal[1].selected.reduce(function(a,b){return (a+weightList[b.weight])},0)]
+																					})],goal[1].selected.length]
 																	]);
 											const newData = [
 												"step", 
@@ -977,17 +984,10 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 											setActiveSidebar(false);
 											
 										}
-										async function updateWeights(){
-											const response = await axios.post('https://sca-auth.herokuapp.com/api/user/weights',{username: user.username,weights:JSON.stringify(weights), _token: user.token});
-											console.log(response)
-										}
 										if(Object.values(weights).reduce((a,b)=>{return a+b.weight},0)!==100){
 											handleShow()
 										}else{
-											calculateNewData();
-											if(!isEmpty(user)){
-												updateWeights();
-											}
+										    calculateNewData();
 										}
 										
 									}}>Generate Visualization</Button>

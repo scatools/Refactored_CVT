@@ -1,18 +1,20 @@
-
+/* background: #292a2b;
+color: #fff;
+*/
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
 
 #sidebar {
-    width: 600px;
+    width: 500px;
     position: absolute;
     top: 55.5px;
     left: -600px;
     height: auto;
     min-height: 94.3vh;
     z-index: 5;
-    background: #292a2b;
-    color: #fff;
+    background: #ffffffef;
+    color: rgb(10, 10, 10);
     transition: all 0.3s;
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
 }
@@ -26,7 +28,7 @@
     height: 35px;
     line-height: 35px;
     text-align: center;
-    background: #3b3b3b;
+    background: #6f7072;
     position: absolute;
     top: 10px;
     right: 10px;
@@ -42,7 +44,7 @@
 }
 
 
-
+/*
 #sidebar .ControlWrapper {
     padding: 20px 0;
 }
@@ -64,8 +66,30 @@
 #sidebar .ControlWrapper .card-body {
     background-color: #a1a3a7;
 }
+*/
 
 
+#sidebar .ControlWrapper {
+    padding: 20px 0;
+}
+
+#sidebar .ControlWrapper p {
+    color: rgb(8, 8, 8);
+    padding: 10px;
+    font-size: 26px;
+}
+
+#sidebar .ControlWrapper .card {
+    border: 1px solid #363c3f;
+}
+
+#sidebar .ControlWrapper .card-header {
+    background-color: #6f7072;
+}
+
+#sidebar .ControlWrapper .card-body {
+    background-color: #fffdfd;
+}
 
 /* ---------------------------------------------------
     CONTENT STYLE

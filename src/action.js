@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {LOAD_DATA,CHANGE_MEASURES, CHANGE_MEASURES_WEIGHT,CHANGE_GOAL_WEIGHTS, CALCULATE_VALUE, SETUSER, REMOVEUSER,SET_WEIGHTS} from './actionType';
+import {LOAD_DATA,CHANGE_MEASURES, CHANGE_MEASURES_WEIGHT,CHANGE_GOAL_WEIGHTS, CALCULATE_VALUE} from './actionType';
 
 
 
@@ -63,6 +63,7 @@ function gotData(data) {
 
 
 
+
 export function calculateValue(weights){
   return {type: CALCULATE_VALUE, weights}
 }
@@ -86,23 +87,5 @@ export function changeGoalWeights(value,goal){
     type: CHANGE_GOAL_WEIGHTS,
     value,
     goal
-  }
-}
-
-export function removeUser(){
-  return {type: REMOVEUSER}
-}
-
-export function setUser(data){
-  return {
-      type: SETUSER,
-      data
-  }
-}
-
-export function setWeights(data){
-  return {
-    data,
-    type: SET_WEIGHTS
   }
 }
