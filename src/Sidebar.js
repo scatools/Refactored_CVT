@@ -867,10 +867,10 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
                                         <tr>
                                           <th>Measure Name</th>
 										  <th>Goal Related</th>
-                                          <th>Utility <MdPermDeviceInformation data-tip data-for='MdPermDeviceInformation' />
-											<ReactTooltip id='MdPermDeviceInformation' type='info'>
+                                          <th>Utility <GoInfo data-tip data-for='GoInfo' />
+											<ReactTooltip id='GoInfo' type='info'>
   												<span>Pragna this thing worked</span>
-												  </ReactTooltip>
+											</ReactTooltip>
 										  </th>
                                           <th>Weights <GoInfo data-tip data-for='GoInfo' />
 											<ReactTooltip id='GoInfo' type='info'>
