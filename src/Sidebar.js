@@ -7,6 +7,7 @@ import {useDispatch,useSelector} from 'react-redux';
 import {changeMeasures,changeMeasuresWeight,changeGoalWeights} from './action';
 import { MdPermDeviceInformation } from 'react-icons/md';
 import { GoInfo } from 'react-icons/go';
+import ReactTooltip from "react-tooltip";
 
 const RESTOREGoal = ['Habitat', 'Water Quality & Quantity', 'Living Coastal & Marine Resources','Community Resilience','Gulf Economy']
 
@@ -852,6 +853,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 								</Card.Body>
 							</Accordion.Collapse>
 						</Card>
+					
 
 						<Card className="my-2">
 							<Accordion.Toggle as={Card.Header} eventKey="3">
@@ -865,8 +867,15 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
                                         <tr>
                                           <th>Measure Name</th>
 										  <th>Goal Related</th>
-                                          <th>Utility <MdPermDeviceInformation /> </th>
-                                          <th>Weights <GoInfo /> </th>
+                                          <th>Utility <MdPermDeviceInformation data-tip data-for='MdPermDeviceInformation' />
+											<ReactTooltip id='MdPermDeviceInformation' type='info'>
+  												<span>Pragna this thing worked</span>
+												  </ReactTooltip>
+										  </th>
+                                          <th>Weights <GoInfo data-tip data-for='GoInfo' />
+											<ReactTooltip id='GoInfo' type='info'>
+  												<span>Pragna this thing worked</span>
+											</ReactTooltip></th>
                                         </tr>
                                     </thead>
 									<tbody>
