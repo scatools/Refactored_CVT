@@ -604,7 +604,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 											{ value: 'eco4', label: 'Access & Recreation' }
 										]}
 										isMulti
-										placeholder="Select Community Resilience measures..."
+										placeholder="Select Gulf Economy..."
 										name="colors"
 										isClearable={false}
 										className="basic-multi-select"
