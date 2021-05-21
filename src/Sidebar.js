@@ -89,7 +89,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
 										menuPortalTarget={document.body}
 										options={[
-											{ value: 'hab1', label: 'Connectivity to Existing Protected Area' },
+											{ value: 'hab1', label: 'Connectivity of Natural Lands' },
 											{ value: 'hab2', label: 'Structural Connectivity Index' },
 											{ value: 'hab3', label: 'Threat of Urbanization' },
 											{ value: 'hab4', label: 'Land Cover - Composition of Natural Lands ' }
@@ -339,7 +339,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
 										menuPortalTarget={document.body}
 										options={[
-											{ value: 'lcmr1', label: 'Biodiversity Index ' },
+											{ value: 'lcmr1', label: 'Vulnerable Areas of Terrestrial Endemic Species' },
 											{
 												value: 'lcmr2',
 												label: 'Threatened and Endangered Species - Critical Habitat Area '
