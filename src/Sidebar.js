@@ -46,7 +46,6 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 								Geographic Scale:
 							</Accordion.Toggle>
 							<Accordion.Collapse eventKey="0">
-								
 								<Card.Body>
 								<h6>Welcome to Conservation visualization tool! This tool provides region-wide visualization based on data measure selected.</h6>
 									<ButtonGroup toggle className="mb-2">
@@ -69,9 +68,46 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 											onChange={(e) => setRadioValue(e.currentTarget.value)}
 										>
 											Filter by States
-										</ToggleButton>
+											</ToggleButton>
 									</ButtonGroup>
 									<br />
+									<span>Select States:</span>
+									<Select
+										styles={{ menuPortal: (base, state) => ({ ...base, zIndex: 9999 }) }}
+										menuPortalTarget={document.body}
+										options={[
+											{ value: 'wq1', type: 'checkbox', label: "Alabama " },
+											{ value: 'wq2', type: 'checkbox', label: 'Louisiana' },
+											{ value: 'wq3', type: 'checkbox', label: 'Texas' },
+											{ value: 'wq3', type: 'checkbox', label: 'Florida' },
+											{ value: 'wq3', type: 'checkbox', label: 'Mississippi' }
+										]}
+										isMulti
+										placeholder="Select states..."
+										name="colors"
+										className="basic-multi-select"
+										classNamePrefix="select"
+										value={weights.wq.selected}
+										isClearable={false}
+										onChange={(selectedOption) => {
+											let state;
+											if (selectedOption) {
+											state = selectedOption.map((selected) => ({
+												...selected,
+												utility: selected['utility'] || '1',
+												weight: selected['weight'] || 'medium'
+											}));
+										}else{
+											state = null;
+											handleWeights(0,'wq');
+										}
+										
+										dispatch(changeMeasures('wq', state))
+										}}
+									/>
+									
+									<br />
+									
 									<Accordion.Toggle eventKey="1" as={Button} variant="dark">
 										Next
 									</Accordion.Toggle>
@@ -89,7 +125,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
 										menuPortalTarget={document.body}
 										options={[
-											{ value: 'hab1', label: 'Connectivity of Natural Lands' },
+											{ value: 'hab1', label: 'Connectivity to Existing Protected Area' },
 											{ value: 'hab2', label: 'Structural Connectivity Index' },
 											{ value: 'hab3', label: 'Threat of Urbanization' },
 											{ value: 'hab4', label: 'Land Cover - Composition of Natural Lands ' }
@@ -215,8 +251,10 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										menuPortalTarget={document.body}
 										options={[
 											{ value: 'wq1', type: 'checkbox', label: "Impaired Watershed Area -- EPA '303(d)' list " },
-											{ value: 'wq2', type: 'checkbox', label: 'Stream Abundance' },
-											{ value: 'wq3', type: 'checkbox', label: 'Hydrologic Response to Land-Use Change' }
+											{ value: 'wq2', type: 'checkbox', label: 'Hydrologic Response to Land-Use Change' },
+											{ value: 'wq3', type: 'checkbox', label: 'Percent Irrigated Agriculture' },
+											{ value: 'wq4', type: 'checkbox', label: 'Lateral Connectivity to Floodplain' },
+											{ value: 'wq5', type: 'checkbox', label: 'Composition of Riparizan Zone Lands' }
 										]}
 										isMulti
 										placeholder="Select Water Quality & Quantity measures..."
@@ -339,7 +377,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
 										menuPortalTarget={document.body}
 										options={[
-											{ value: 'lcmr1', label: 'Vulnerable Areas of Terrestrial Endemic Species' },
+											{ value: 'lcmr1', label: 'Biodiversity Index' },
 											{
 												value: 'lcmr2',
 												label: 'Threatened and Endangered Species - Critical Habitat Area '
@@ -836,7 +874,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
                                     }
 									</Form>
 									<br />
-									<label>Total Sum &nbsp;&nbsp;</label>
+									<label>Total Sum: &nbsp;&nbsp;</label>
 									<span>
 										<input
 											type="text"
@@ -857,11 +895,11 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 
 						<Card className="my-2">
 							<Accordion.Toggle as={Card.Header} eventKey="3">
-								Review:
+								Review & Result:
 							</Accordion.Toggle>
 							<Accordion.Collapse eventKey="3">
 								<Card.Body>
-									Data Measure:
+									Data Measure Weights Summary:
 									<Table striped bordered hover size="sm">
 									<thead>
                                         <tr>
@@ -931,12 +969,12 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										}
                                     </tbody>     
 								    </Table>
-									Goal Weights:
+									Goal Weights Summary:
 									<Table striped bordered hover size="sm">
 									<thead>
                                         <tr>
                                           <th>RESTORE Goal</th>
-										  <th>Goal Weights</th>
+										  <th>Weights</th>
                                         </tr>
                                     </thead>
 									<tbody>
