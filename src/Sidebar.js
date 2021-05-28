@@ -3,6 +3,7 @@ import { Button, Accordion, Card, Form, Row, Col, ButtonGroup, ToggleButton, Tab
 import RangeSlider from 'react-bootstrap-range-slider';
 import './main.css';
 import Select from 'react-select';
+import SidebarMode from './SidebarMode';
 import {useDispatch,useSelector} from 'react-redux';
 import {changeMeasures,changeMeasuresWeight,changeGoalWeights} from './action';
 import { GoInfo } from 'react-icons/go';
@@ -15,8 +16,8 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+	const [ mode, setMode ] = useState('add');
 
-	const [ radioValue, setRadioValue ] = useState('SCA');
     const weights =  useSelector(state => state.weights)
 
 	const handleChange = (value, name, label, type) => {	
@@ -47,29 +48,10 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 							<Accordion.Collapse eventKey="0">
 								<Card.Body>
 								<h6>Welcome to Conservation visualization tool! This tool provides region-wide visualization based on data measure selected.</h6>
-									<ButtonGroup toggle className="mb-2">
-										<ToggleButton
-											type="radio"
-											variant="outline-secondary"
-											name="SCA"
-											value="SCA"
-											checked={radioValue === 'SCA'}
-											onChange={(e) => setRadioValue(e.currentTarget.value)}
-										>
-											SCA Region
-										</ToggleButton>
-										<ToggleButton
-											type="radio"
-											variant="outline-secondary"
-											name="states"
-											value="states"
-											checked={radioValue === 'state'}
-											onChange={(e) => setRadioValue(e.currentTarget.value)}
-										>
-											Filter by States
-											</ToggleButton>
-									</ButtonGroup>
+								<SidebarMode mode={mode} setMode={setMode} />
 									<br />
+									{mode === 'view' && (
+										<div>
 									<span>Select States:</span>
 									<Select
 										styles={{ menuPortal: (base, state) => ({ ...base, zIndex: 9999 }) }}
@@ -104,9 +86,9 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										dispatch(changeMeasures('wq', state))
 										}}
 									/>
-									
+									</div>
+									)}
 									<br />
-									
 									<Accordion.Toggle eventKey="1" as={Button} variant="dark">
 										Next
 									</Accordion.Toggle>
@@ -124,8 +106,8 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
 										menuPortalTarget={document.body}
 										options={[
-											{ value: 'hab1', label: 'Connectivity to Existing Protected Area' },
-											{ value: 'hab2', label: 'Structural Connectivity Index' },
+											{ value: 'hab1', label: 'Padus - Connectivity to Existing Protected Area' },
+											{ value: 'hab2', label: 'Connectivity of Natural Lands' },
 											{ value: 'hab3', label: 'Threat of Urbanization' },
 											{ value: 'hab4', label: 'Land Cover - Composition of Natural Lands ' }
 										]}
@@ -257,7 +239,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										styles={{ menuPortal: (base, state) => ({ ...base, zIndex: 9999 }) }}
 										menuPortalTarget={document.body}
 										options={[
-											{ value: 'wq1', type: 'checkbox', label: "Impaired Watershed Area -- EPA '303(d)' list " },
+											{ value: 'wq1', type: 'checkbox', label: "303(D): Impaired Watershed Area " },
 											{ value: 'wq2', type: 'checkbox', label: 'Hydrologic Response to Land-Use Change' },
 											{ value: 'wq3', type: 'checkbox', label: 'Percent Irrigated Agriculture' },
 											{ value: 'wq4', type: 'checkbox', label: 'Lateral Connectivity to Floodplain' },
@@ -392,7 +374,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
 										menuPortalTarget={document.body}
 										options={[
-											{ value: 'lcmr1', label: 'Biodiversity Index' },
+											{ value: 'lcmr1', label: 'Vulnerable Area of Terrestrial Endemic Species' },
 											{
 												value: 'lcmr2',
 												label: 'Threatened and Endangered Species - Critical Habitat Area '
@@ -401,7 +383,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 												value: 'lcmr3',
 												label: 'Threatened and Endangered Species - Number of Species '
 											},
-											{ value: 'lcmr4', label: 'Light Pollution Index  ' }
+											{ value: 'lcmr4', label: 'Light Pollution Index' }
 										]}
 										isMulti
 										placeholder="Select Living Coastal & Marine Resources measures..."
@@ -535,7 +517,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										options={[
 											{ value: 'cl1', label: 'National Register of Historic Places' },
 											{ value: 'cl2', label: 'National Heritage Area' },
-											{ value: 'cl3', label: 'Social Vulnerability Index' },
+											{ value: 'cl3', label: 'Proximity to Socially Vulnerability Communities' },
 											{ value: 'cl4', label: 'Community Threat Index ' }
 										]}
 										isMulti
@@ -667,10 +649,10 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
 										menuPortalTarget={document.body}
 										options={[
-											{ value: 'eco1', label: 'Working Lands' },
-											{ value: 'eco2', label: 'Commercial Fishery Index' },
-											{ value: 'eco3', label: 'Recreational Fishery Index' },
-											{ value: 'eco4', label: 'Access & Recreation' }
+											{ value: 'eco1', label: 'High Priority Working Lands' },
+											{ value: 'eco2', label: 'Commercial Fishery Reliance' },
+											{ value: 'eco3', label: 'Recreational Fishery Engagement' },
+											{ value: 'eco4', label: 'Access & Recreation - Number of Access Points' }
 										]}
 										isMulti
 										placeholder="Select Gulf Economy..."
@@ -944,13 +926,13 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
                                         <tr>
                                           <th>Measure Name</th>
 										  <th>Goal Related</th>
-                                          <th>Utility <GoInfo data-tip data-for='GoInfo' />
-											<ReactTooltip id='GoInfo' type='info'>
+                                          <th>Utility &nbsp;<GoInfo data-tip data-for='GoInfo' />
+											<ReactTooltip id='GoInfo' type='dark'>
   												<span>Pragna this thing worked</span>
 											</ReactTooltip>
 										  </th>
-                                          <th>Weights <GoInfo data-tip data-for='GoInfo' />
-											<ReactTooltip id='GoInfo' type='info'>
+                                          <th>Weights &nbsp;<GoInfo data-tip data-for='GoInfo' />
+											<ReactTooltip id='GoInfo' type='dark'>
   												<span>Pragna this thing worked</span>
 											</ReactTooltip></th>
                                         </tr>
