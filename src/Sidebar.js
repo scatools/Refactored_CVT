@@ -3,10 +3,11 @@ import { Button, Accordion, Card, Form, Row, Col, ButtonGroup, ToggleButton, Tab
 import RangeSlider from 'react-bootstrap-range-slider';
 import './main.css';
 import Select from 'react-select';
+import SidebarMode from './SidebarMode';
 import {useDispatch,useSelector} from 'react-redux';
 import {changeMeasures,changeMeasuresWeight,changeGoalWeights} from './action';
-import { MdPermDeviceInformation } from 'react-icons/md';
 import { GoInfo } from 'react-icons/go';
+import ReactTooltip from "react-tooltip";
 
 const RESTOREGoal = ['Habitat', 'Water Quality & Quantity', 'Living Coastal & Marine Resources','Community Resilience','Gulf Economy']
 
@@ -15,8 +16,8 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+	const [ mode, setMode ] = useState('add');
 
-	const [ radioValue, setRadioValue ] = useState('SCA');
     const weights =  useSelector(state => state.weights)
 
 	const handleChange = (value, name, label, type) => {	
@@ -45,31 +46,48 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 								Geographic Scale:
 							</Accordion.Toggle>
 							<Accordion.Collapse eventKey="0">
-								
 								<Card.Body>
 								<h6>Welcome to Conservation visualization tool! This tool provides region-wide visualization based on data measure selected.</h6>
-									<ButtonGroup toggle className="mb-2">
-										<ToggleButton
-											type="radio"
-											variant="outline-secondary"
-											name="SCA"
-											value="SCA"
-											checked={radioValue === 'SCA'}
-											onChange={(e) => setRadioValue(e.currentTarget.value)}
-										>
-											SCA Region
-										</ToggleButton>
-										<ToggleButton
-											type="radio"
-											variant="outline-secondary"
-											name="states"
-											value="states"
-											checked={radioValue === 'state'}
-											onChange={(e) => setRadioValue(e.currentTarget.value)}
-										>
-											Filter by States
-										</ToggleButton>
-									</ButtonGroup>
+								<SidebarMode mode={mode} setMode={setMode} />
+									<br />
+									{mode === 'view' && (
+										<div>
+									<span>Select States:</span>
+									<Select
+										styles={{ menuPortal: (base, state) => ({ ...base, zIndex: 9999 }) }}
+										menuPortalTarget={document.body}
+										options={[
+											{ value: 'wq1', type: 'checkbox', label: "Alabama " },
+											{ value: 'wq2', type: 'checkbox', label: 'Louisiana' },
+											{ value: 'wq3', type: 'checkbox', label: 'Texas' },
+											{ value: 'wq3', type: 'checkbox', label: 'Florida' },
+											{ value: 'wq3', type: 'checkbox', label: 'Mississippi' }
+										]}
+										isMulti
+										placeholder="Select states..."
+										name="colors"
+										className="basic-multi-select"
+										classNamePrefix="select"
+										value={weights.wq.selected}
+										isClearable={false}
+										onChange={(selectedOption) => {
+											let state;
+											if (selectedOption) {
+											state = selectedOption.map((selected) => ({
+												...selected,
+												utility: selected['utility'] || '1',
+												weight: selected['weight'] || 'medium'
+											}));
+										}else{
+											state = null;
+											handleWeights(0,'wq');
+										}
+										
+										dispatch(changeMeasures('wq', state))
+										}}
+									/>
+									</div>
+									)}
 									<br />
 									<Accordion.Toggle eventKey="1" as={Button} variant="dark">
 										Next
@@ -88,8 +106,8 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
 										menuPortalTarget={document.body}
 										options={[
-											{ value: 'hab1', label: 'Connectivity to Existing Protected Area' },
-											{ value: 'hab2', label: 'Structural Connectivity Index' },
+											{ value: 'hab1', label: 'Padus - Connectivity to Existing Protected Area' },
+											{ value: 'hab2', label: 'Connectivity of Natural Lands' },
 											{ value: 'hab3', label: 'Threat of Urbanization' },
 											{ value: 'hab4', label: 'Land Cover - Composition of Natural Lands ' }
 										]}
@@ -124,6 +142,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 												<ButtonGroup toggle>
 													<ToggleButton
 														type="radio"
+														data-tip data-for="more"
 														variant="outline-secondary"
 														name="utility"
 														value="-1"
@@ -136,10 +155,14 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 																'hab'
 															)}
 													>
-														UnDesired
+														Higher
 													</ToggleButton>
+													<ReactTooltip id="more" place="top">
+        											More is better
+     												</ReactTooltip>
 													<ToggleButton
 														type="radio"
+														data-tip data-for="less"
 														variant="outline-secondary"
 														name="utility"
 														value="1"
@@ -152,8 +175,11 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 																'hab'
 															)}
 													>
-														Desired
+														Lower
 													</ToggleButton>
+													<ReactTooltip id="less" place="top">
+        											Less is better
+     												</ReactTooltip>
 												</ButtonGroup>
 												<ButtonGroup toggle className="ml-2">
 													<ToggleButton
@@ -213,9 +239,11 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										styles={{ menuPortal: (base, state) => ({ ...base, zIndex: 9999 }) }}
 										menuPortalTarget={document.body}
 										options={[
-											{ value: 'wq1', type: 'checkbox', label: "Impaired Watershed Area -- EPA '303(d)' list " },
-											{ value: 'wq2', type: 'checkbox', label: 'Stream Abundance' },
-											{ value: 'wq3', type: 'checkbox', label: 'Hydrologic Response to Land-Use Change' }
+											{ value: 'wq1', type: 'checkbox', label: "303(D): Impaired Watershed Area " },
+											{ value: 'wq2', type: 'checkbox', label: 'Hydrologic Response to Land-Use Change' },
+											{ value: 'wq3', type: 'checkbox', label: 'Percent Irrigated Agriculture' },
+											{ value: 'wq4', type: 'checkbox', label: 'Lateral Connectivity to Floodplain' },
+											{ value: 'wq5', type: 'checkbox', label: 'Composition of Riparizan Zone Lands' }
 										]}
 										isMulti
 										placeholder="Select Water Quality & Quantity measures..."
@@ -250,6 +278,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 													<ToggleButton
 														type="radio"
 														variant="outline-secondary"
+														data-tip data-for="More1"
 														name="utility"
 														value="-1"
 														checked={measure.utility === '-1'}
@@ -261,11 +290,15 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 																'wq'
 															)}
 													>
-														UnDesired
+														More
 													</ToggleButton>
+													<ReactTooltip id="More1" place="top">
+													Higher is better
+													</ReactTooltip>
 													<ToggleButton
 														type="radio"
 														variant="outline-secondary"
+														data-tip data-for="Less1"
 														name="utility"
 														value="1"
 														checked={measure.utility === '1'}
@@ -277,8 +310,11 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 																'wq'
 															)}
 													>
-														Desired
+														Less
 													</ToggleButton>
+													<ReactTooltip id="Less1" place="top">
+													Lower is better
+													</ReactTooltip>
 												</ButtonGroup>
 												<ButtonGroup toggle className="ml-2">
 													<ToggleButton
@@ -338,7 +374,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
 										menuPortalTarget={document.body}
 										options={[
-											{ value: 'lcmr1', label: 'Biodiversity Index ' },
+											{ value: 'lcmr1', label: 'Vulnerable Area of Terrestrial Endemic Species' },
 											{
 												value: 'lcmr2',
 												label: 'Threatened and Endangered Species - Critical Habitat Area '
@@ -347,7 +383,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 												value: 'lcmr3',
 												label: 'Threatened and Endangered Species - Number of Species '
 											},
-											{ value: 'lcmr4', label: 'Light Pollution Index  ' }
+											{ value: 'lcmr4', label: 'Light Pollution Index' }
 										]}
 										isMulti
 										placeholder="Select Living Coastal & Marine Resources measures..."
@@ -384,6 +420,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 														type="radio"
 														variant="outline-secondary"
 														name="utility"
+														data-tip data-for="More"
 														value="-1"
 														checked={measure.utility === '-1'}
 														onChange={(e) =>
@@ -394,12 +431,16 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 																'lcmr'
 															)}
 													>
-														UnDesired
+														More
 													</ToggleButton>
+													<ReactTooltip id="More" place="top">
+													More impact less conservations
+													</ReactTooltip>
 													<ToggleButton
 														type="radio"
 														variant="outline-secondary"
 														name="utility"
+														data-tip data-for="Less"
 														value="1"
 														checked={measure.utility === '1'}
 														onChange={(e) =>
@@ -410,8 +451,11 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 																'lcmr'
 															)}
 													>
-														Desired
+														Less
 													</ToggleButton>
+													<ReactTooltip id="Less" place="top">
+													Less impact better conservations
+													</ReactTooltip>
 												</ButtonGroup>
 												<ButtonGroup toggle className="ml-2">
 													<ToggleButton
@@ -473,7 +517,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										options={[
 											{ value: 'cl1', label: 'National Register of Historic Places' },
 											{ value: 'cl2', label: 'National Heritage Area' },
-											{ value: 'cl3', label: 'Social Vulnerability Index' },
+											{ value: 'cl3', label: 'Proximity to Socially Vulnerability Communities' },
 											{ value: 'cl4', label: 'Community Threat Index ' }
 										]}
 										isMulti
@@ -509,6 +553,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 													<ToggleButton
 														type="radio"
 														variant="outline-secondary"
+														data-tip data-for="more"
 														name="utility"
 														value="-1"
 														checked={measure.utility === '-1'}
@@ -520,11 +565,15 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 																'cl'
 															)}
 													>
-														UnDesired
+														More
 													</ToggleButton>
+													<ReactTooltip id="more" place="top">
+													More score the better
+													</ReactTooltip>
 													<ToggleButton
 														type="radio"
 														variant="outline-secondary"
+														data-tip data-for="less"
 														name="utility"
 														value="1"
 														checked={measure.utility === '1'}
@@ -536,8 +585,11 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 																'cl'
 															)}
 													>
-														Desired
+														Less
 													</ToggleButton>
+													<ReactTooltip id="less" place="top">
+													Less score the better
+												    </ReactTooltip>
 												</ButtonGroup>
 												<ButtonGroup toggle className="ml-2">
 													<ToggleButton
@@ -597,13 +649,13 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
 										menuPortalTarget={document.body}
 										options={[
-											{ value: 'eco1', label: 'Working Lands' },
-											{ value: 'eco2', label: 'Commercial Fishery Index' },
-											{ value: 'eco3', label: 'Recreational Fishery Index' },
-											{ value: 'eco4', label: 'Access & Recreation' }
+											{ value: 'eco1', label: 'High Priority Working Lands' },
+											{ value: 'eco2', label: 'Commercial Fishery Reliance' },
+											{ value: 'eco3', label: 'Recreational Fishery Engagement' },
+											{ value: 'eco4', label: 'Access & Recreation - Number of Access Points' }
 										]}
 										isMulti
-										placeholder="Select Community Resilience measures..."
+										placeholder="Select Gulf Economy..."
 										name="colors"
 										isClearable={false}
 										className="basic-multi-select"
@@ -636,6 +688,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 													<ToggleButton
 														type="radio"
 														variant="outline-secondary"
+														data-tip data-for="more"
 														name="utility"
 														value="-1"
 														checked={measure.utility === '-1'}
@@ -647,11 +700,15 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 																'eco'
 															)}
 													>
-														UnDesired
+														More
 													</ToggleButton>
+													<ReactTooltip id="more" place="top">
+													More score the better
+													</ReactTooltip>
 													<ToggleButton
 														type="radio"
 														variant="outline-secondary"
+														data-tip data-for="less"
 														name="utility"
 														value="1"
 														checked={measure.utility === '1'}
@@ -663,8 +720,11 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 																'eco'
 															)}
 													>
-														Desired
+														Less
 													</ToggleButton>
+													<ReactTooltip id="less" place="top">
+													Less score the better
+													</ReactTooltip>
 												</ButtonGroup>
 												<ButtonGroup toggle className="ml-2">
 													<ToggleButton
@@ -835,27 +895,46 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
                                     }
 									</Form>
 									<br />
+									<label>Total Sum: &nbsp;&nbsp;</label>
+									<span>
+										<input
+											type="text"
+											value={weights.hab.weight+weights.wq.weight+weights.lcmr.weight+weights.cl.weight+weights.eco.weight}							
+											disabled
+										>	
+										</input>
+									</span>
+									<br></br>
+									<br></br>
 									<Accordion.Toggle eventKey="3" as={Button} variant="dark">
 										Next
 									</Accordion.Toggle>
 								</Card.Body>
 							</Accordion.Collapse>
 						</Card>
+					
 
 						<Card className="my-2">
 							<Accordion.Toggle as={Card.Header} eventKey="3">
-								Review:
+								Review & Result:
 							</Accordion.Toggle>
 							<Accordion.Collapse eventKey="3">
 								<Card.Body>
-									Data Measure:
+									Data Measure Weights Summary:
 									<Table striped bordered hover size="sm">
 									<thead>
                                         <tr>
                                           <th>Measure Name</th>
 										  <th>Goal Related</th>
-                                          <th>Utility <MdPermDeviceInformation /> </th>
-                                          <th>Weights <GoInfo /> </th>
+                                          <th>Utility &nbsp;<GoInfo data-tip data-for='GoInfo' />
+											<ReactTooltip id='GoInfo' type='dark'>
+  												<span>Pragna this thing worked</span>
+											</ReactTooltip>
+										  </th>
+                                          <th>Weights &nbsp;<GoInfo data-tip data-for='GoInfo' />
+											<ReactTooltip id='GoInfo' type='dark'>
+  												<span>Pragna this thing worked</span>
+											</ReactTooltip></th>
                                         </tr>
                                     </thead>
 									<tbody>
@@ -911,12 +990,12 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										}
                                     </tbody>     
 								    </Table>
-									Goal Weights:
+									Goal Weights Summary:
 									<Table striped bordered hover size="sm">
 									<thead>
                                         <tr>
                                           <th>RESTORE Goal</th>
-										  <th>Goal Weights</th>
+										  <th>Weights</th>
                                         </tr>
                                     </thead>
 									<tbody>

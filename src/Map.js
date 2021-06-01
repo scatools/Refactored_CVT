@@ -40,14 +40,14 @@ const Map = ({ weightsDone, data }) => {
 			style={{ position: 'fixed' }}
 			width="100vw"
 			height="100vh"
-			mapStyle="mapbox://styles/mapbox/light-v9"
+			mapStyle="mapbox://styles/mapbox/dark-v9"
 			onViewportChange={(nextViewport) => setViewport(nextViewport)}
 			mapboxApiAccessToken={MAPBOX_TOKEN}
 			onClick={onHover}
 		>
 			{weightsDone && (
 				<>
-				<Source type="vector" url="mapbox://chuck0520.7z43f6wi" maxzoom={14} minzoom={9}>
+				<Source type="vector" url="mapbox://chuck0520.7z43f6wi" maxzoom={22} minzoom={0}>
 					<Layer
 						{...dataLayer}
 						paint={{

@@ -2,8 +2,8 @@ export const dataLayer = {
 	id: 'cvt-data',
 	'source-layer': 'whole_data_singlepart1-7hgszb',
 	type: 'fill',
-	minzoom: 8,
-	maxzoom: 20
+	minzoom: 0,
+	maxzoom: 22
 };
 
 export const dataLayerHightLight = {

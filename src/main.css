@@ -13,8 +13,8 @@ color: #fff;
     height: auto;
     min-height: 94.3vh;
     z-index: 5;
-    background: #ffffffef;
-    color: rgb(10, 10, 10);
+    background: #292a2b;
+    color: #fff;
     transition: all 0.3s;
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
 }
@@ -28,7 +28,7 @@ color: #fff;
     height: 35px;
     line-height: 35px;
     text-align: center;
-    background: #6f7072;
+    background: #3b3b3b;
     position: absolute;
     top: 10px;
     right: 10px;
@@ -74,7 +74,7 @@ color: #fff;
 }
 
 #sidebar .ControlWrapper p {
-    color: rgb(8, 8, 8);
+    color: #fff;
     padding: 10px;
     font-size: 26px;
 }
@@ -88,9 +88,8 @@ color: #fff;
 }
 
 #sidebar .ControlWrapper .card-body {
-    background-color: #fffdfd;
+    background-color: #a1a3a7;
 }
-
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
