@@ -7,9 +7,9 @@ const SidebarMode = ({ mode, setMode }) => {
 									<ToggleButton
 											type="radio"
 											variant="outline-secondary"
-                                            name="view"
-				                            value="view"
-				                            checked={mode === 'view'}
+                                            name="region"
+				                            value="-1"
+				                            checked={mode === '-1'}
 				                            onChange={(e) => setMode(e.currentTarget.value)}
 										>
 											SCA Region
@@ -17,7 +17,7 @@ const SidebarMode = ({ mode, setMode }) => {
 										<ToggleButton
 											type="radio"
 											variant="outline-secondary"
-                                            name="view"
+                                            name="states"
 				                            value="view"
 				                            checked={mode === 'view'}
 				                            onChange={(e) => setMode(e.currentTarget.value)}   

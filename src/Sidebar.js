@@ -47,11 +47,11 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 							</Accordion.Toggle>
 							<Accordion.Collapse eventKey="0">
 								<Card.Body>
-								<h6>Welcome to Conservation visualization tool! This tool provides region-wide visualization based on data measure selected.</h6>
+								<h6>Welcome to Conservation Visualization Tool! This tool provides region-wide visualization based on data measure selected.</h6>
 								<SidebarMode mode={mode} setMode={setMode} />
 									<br />
 									{mode === 'view' && (
-										<div>
+									<div>
 									<span>Select States:</span>
 									<Select
 										styles={{ menuPortal: (base, state) => ({ ...base, zIndex: 9999 }) }}
@@ -60,8 +60,8 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 											{ value: 'wq1', type: 'checkbox', label: "Alabama " },
 											{ value: 'wq2', type: 'checkbox', label: 'Louisiana' },
 											{ value: 'wq3', type: 'checkbox', label: 'Texas' },
-											{ value: 'wq3', type: 'checkbox', label: 'Florida' },
-											{ value: 'wq3', type: 'checkbox', label: 'Mississippi' }
+											{ value: 'wq4', type: 'checkbox', label: 'Florida' },
+											{ value: 'wq5', type: 'checkbox', label: 'Mississippi' }
 										]}
 										isMulti
 										placeholder="Select states..."
@@ -72,17 +72,6 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										isClearable={false}
 										onChange={(selectedOption) => {
 											let state;
-											if (selectedOption) {
-											state = selectedOption.map((selected) => ({
-												...selected,
-												utility: selected['utility'] || '1',
-												weight: selected['weight'] || 'medium'
-											}));
-										}else{
-											state = null;
-											handleWeights(0,'wq');
-										}
-										
 										dispatch(changeMeasures('wq', state))
 										}}
 									/>
@@ -95,12 +84,137 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 								</Card.Body>
 							</Accordion.Collapse>
 						</Card>
+						
 						<Card className="my-2">
 							<Accordion.Toggle as={Card.Header} eventKey="1">
-								Data Measures:
+								RESTORE Goal Weights:
 							</Accordion.Toggle>
 							<Accordion.Collapse eventKey="1">
 								<Card.Body>
+									<Form>
+									    <>
+										<span>Habitat:</span>
+										<Form.Group as={Row}>
+											<Col xs="9">
+												<RangeSlider
+													step = {5}
+													value={weights.hab.weight}
+													onChange={(e) => handleWeights(e.target.value,'hab')}
+													variant="secondary"
+												/>
+											</Col>
+											<Col xs="3">
+												<Form.Control
+													value={weights.hab.weight}
+													onChange={(e) => handleWeights(e.target.value, 'hab')}
+												/>
+											</Col>
+										</Form.Group>
+										</>
+									    <>
+										<span>Water Quality & Quantity:</span>
+										<Form.Group as={Row}>
+										<Col xs="9">
+												<RangeSlider
+													step = {5}
+													value={weights.wq.weight}
+													onChange={(e) => handleWeights(e.target.value, 'wq')}
+													variant="secondary"
+												/>
+											</Col>
+											<Col xs="3">
+												<Form.Control
+													value={weights.wq.weight}
+													onChange={(e) => handleWeights(e.target.value, 'wq')}
+												/>
+											</Col>
+										</Form.Group>
+										</>
+										<>
+										<span>Living Coastal & Marine Resources:</span>
+										<Form.Group as={Row}>
+										<Col xs="9">
+												<RangeSlider
+													step = {5}
+													value={weights.lcmr.weight}
+													onChange={(e) => handleWeights(e.target.value, 'lcmr')}
+													variant="secondary"
+												/>
+											</Col>
+											<Col xs="3">
+												<Form.Control
+													value={weights.lcmr.weight}
+													onChange={(e) => handleWeights(e.target.value, 'lcmr')}
+												/>
+											</Col>
+										</Form.Group>
+										</>
+                                    	<>
+										<span>Community Resilience:</span>
+										<Form.Group as={Row}>
+										<Col xs="9">
+												<RangeSlider
+													step = {5}
+													value={weights.cl.weight}
+													onChange={(e) => handleWeights(e.target.value, 'cl')}
+													variant="secondary"
+												/>
+											</Col>
+											<Col xs="3">
+												<Form.Control
+													value={weights.cl.weight}
+													onChange={(e) => handleWeights(e.target.value, 'cl')}
+												/>
+											</Col>
+										</Form.Group>
+										</>
+                    					<>
+										<span>Gulf Economy:</span>
+										<Form.Group as={Row}>
+										<Col xs="9">
+												<RangeSlider
+													step = {5}
+													value={weights.eco.weight}
+													onChange={(e) => handleWeights(e.target.value, 'eco')}
+													variant="secondary"
+												/>
+											</Col>
+											<Col xs="3">
+												<Form.Control
+													value={weights.eco.weight}
+													onChange={(e) => handleWeights(e.target.value, 'eco')}
+												/>
+											</Col>
+										</Form.Group>
+										</>
+									</Form>
+									<br />
+									<label>Total Sum: &nbsp;&nbsp;</label>
+									<span>
+										<input
+											type="text"
+											value={weights.hab.weight+weights.wq.weight+weights.lcmr.weight+weights.cl.weight+weights.eco.weight}							
+											disabled
+										>	
+										</input>
+									</span>
+									<br></br>
+									<br></br>
+									<Accordion.Toggle eventKey="2" as={Button} variant="dark">
+										Next
+									</Accordion.Toggle>
+								</Card.Body>
+							</Accordion.Collapse>
+						</Card>
+					
+
+						<Card className="my-2">
+							<Accordion.Toggle as={Card.Header} eventKey="2">
+								Data Measures:
+							</Accordion.Toggle>
+							<Accordion.Collapse eventKey="2">
+								<Card.Body>
+									<div>
 									<span>Habitat:</span>
 									<Select
 										styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
@@ -133,6 +247,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										className="basic-multi-select"
 										classNamePrefix="select"
 									/>
+									
 									{weights.hab.selected &&
 										weights.hab.selected.map((measure) => (
 											<div className="m-2" key={measure.value}>
@@ -233,7 +348,9 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 												</ButtonGroup>
 											</div>
 										))}
+										</div>
 									<br />
+									
 									<span>Water Quality & Quantity:</span>
 									<Select
 										styles={{ menuPortal: (base, state) => ({ ...base, zIndex: 9999 }) }}
@@ -779,140 +896,12 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 											</div>
 										))}
 										<br />
-									<Accordion.Toggle eventKey="2" as={Button} variant="dark">
-										Next
-									</Accordion.Toggle>
-								</Card.Body>
-							</Accordion.Collapse>
-						</Card>
-
-						<Card className="my-2">
-							<Accordion.Toggle as={Card.Header} eventKey="2">
-								RESTORE Goal Weights:
-							</Accordion.Toggle>
-							<Accordion.Collapse eventKey="2">
-								<Card.Body>
-									<Form>
-									{weights.hab.selected &&
-									    (<>
-										<span>Habitat:</span>
-										<Form.Group as={Row}>
-											<Col xs="9">
-												<RangeSlider
-													value={weights.hab.weight}
-													onChange={(e) => handleWeights(e.target.value,'hab')}
-													variant="secondary"
-												/>
-											</Col>
-											<Col xs="3">
-												<Form.Control
-													value={weights.hab.weight}
-													onChange={(e) => handleWeights(e.target.value, 'hab')}
-												/>
-											</Col>
-										</Form.Group>
-										</>)
-                                    }
-									{weights.wq.selected &&
-									    (<>
-										<span>Water Quality & Quantity:</span>
-										<Form.Group as={Row}>
-										<Col xs="9">
-												<RangeSlider
-													value={weights.wq.weight}
-													onChange={(e) => handleWeights(e.target.value, 'wq')}
-													variant="secondary"
-												/>
-											</Col>
-											<Col xs="3">
-												<Form.Control
-													value={weights.wq.weight}
-													onChange={(e) => handleWeights(e.target.value, 'wq')}
-												/>
-											</Col>
-										</Form.Group>
-										</>)
-                                    }
-									{weights.lcmr.selected &&
-									    (<>
-										<span>Living Coastal & Marine Resources:</span>
-										<Form.Group as={Row}>
-										<Col xs="9">
-												<RangeSlider
-													value={weights.lcmr.weight}
-													onChange={(e) => handleWeights(e.target.value, 'lcmr')}
-													variant="secondary"
-												/>
-											</Col>
-											<Col xs="3">
-												<Form.Control
-													value={weights.lcmr.weight}
-													onChange={(e) => handleWeights(e.target.value, 'lcmr')}
-												/>
-											</Col>
-										</Form.Group>
-										</>)
-                                    }
-									{weights.cl.selected &&
-									    (<>
-										<span>Community Resilience:</span>
-										<Form.Group as={Row}>
-										<Col xs="9">
-												<RangeSlider
-													value={weights.cl.weight}
-													onChange={(e) => handleWeights(e.target.value, 'cl')}
-													variant="secondary"
-												/>
-											</Col>
-											<Col xs="3">
-												<Form.Control
-													value={weights.cl.weight}
-													onChange={(e) => handleWeights(e.target.value, 'cl')}
-												/>
-											</Col>
-										</Form.Group>
-										</>)
-                                    }
-									{weights.eco.selected &&
-									    (<>
-										<span>Gulf Economy:</span>
-										<Form.Group as={Row}>
-										<Col xs="9">
-												<RangeSlider
-													value={weights.eco.weight}
-													onChange={(e) => handleWeights(e.target.value, 'eco')}
-													variant="secondary"
-												/>
-											</Col>
-											<Col xs="3">
-												<Form.Control
-													value={weights.eco.weight}
-													onChange={(e) => handleWeights(e.target.value, 'eco')}
-												/>
-											</Col>
-										</Form.Group>
-										</>)
-                                    }
-									</Form>
-									<br />
-									<label>Total Sum: &nbsp;&nbsp;</label>
-									<span>
-										<input
-											type="text"
-											value={weights.hab.weight+weights.wq.weight+weights.lcmr.weight+weights.cl.weight+weights.eco.weight}							
-											disabled
-										>	
-										</input>
-									</span>
-									<br></br>
-									<br></br>
 									<Accordion.Toggle eventKey="3" as={Button} variant="dark">
 										Next
 									</Accordion.Toggle>
 								</Card.Body>
 							</Accordion.Collapse>
 						</Card>
-					
 
 						<Card className="my-2">
 							<Accordion.Toggle as={Card.Header} eventKey="3">
