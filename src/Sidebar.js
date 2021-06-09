@@ -47,7 +47,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 							</Accordion.Toggle>
 							<Accordion.Collapse eventKey="0">
 								<Card.Body>
-								<h6>Welcome to Conservation Visualization Tool! This tool provides region-wide visualization based on data measure selected.</h6>
+								<h6>Welcome to Conservation Visualization Tool! This tool provides region-wide visualization based on data measures selected.</h6>
 								<SidebarMode mode={mode} setMode={setMode} />
 									<br />
 									{mode === 'view' && (
