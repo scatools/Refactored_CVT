@@ -223,7 +223,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 											{ value: 'hab1', label: 'Padus - Connectivity to Existing Protected Area' },
 											{ value: 'hab2', label: 'Connectivity of Natural Lands' },
 											{ value: 'hab3', label: 'Threat of Urbanization' },
-											{ value: 'hab4', label: 'Land Cover - Composition of Natural Lands ' }
+											{ value: 'hab4', label: 'Land Cover - Composition of Priority Natural Lands ' }
 										]}
 										isMulti
 										isClearable={false}
@@ -356,7 +356,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										styles={{ menuPortal: (base, state) => ({ ...base, zIndex: 9999 }) }}
 										menuPortalTarget={document.body}
 										options={[
-											{ value: 'wq1', type: 'checkbox', label: "303(D): Impaired Watershed Area " },
+											{ value: 'wq1', type: 'checkbox', label: '303(D): Impaired Watershed Area' },
 											{ value: 'wq2', type: 'checkbox', label: 'Hydrologic Response to Land-Use Change' },
 											{ value: 'wq3', type: 'checkbox', label: 'Percent Irrigated Agriculture' },
 											{ value: 'wq4', type: 'checkbox', label: 'Lateral Connectivity to Floodplain' },

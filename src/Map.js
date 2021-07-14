@@ -47,7 +47,7 @@ const Map = ({ weightsDone, data }) => {
 		>
 			{weightsDone && (
 				<>
-				<Source type="vector" url="mapbox://chuck0520.7z43f6wi" maxzoom={22} minzoom={0}>
+				<Source type="vector" url="mapbox://chuck0520.09krrv10" maxzoom={22} minzoom={0}>
 					<Layer
 						{...dataLayer}
 						paint={{
