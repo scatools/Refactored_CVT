@@ -16,11 +16,11 @@ const ControlPanel = ({hoverInfo})=> {
 	 								</td>
 	 							</tr>
 	 							<tr>
-	 								<td>Padus:</td>
+	 								<td>Connectivity to Existing Protected Area:</td>
 	 								<td>{hoverInfo.hexagon.hab1}</td>
 	 							</tr>
 	 							<tr>
-	 								<td>Structural Connectivity:</td>
+	 								<td>Connectivity of Natural Lands:</td>
 	 								<td>{hoverInfo.hexagon.hab2}</td>
 	 							</tr>
 	 							<tr>
@@ -28,12 +28,12 @@ const ControlPanel = ({hoverInfo})=> {
 	 								<td>{hoverInfo.hexagon.hab3}</td>
 	 							</tr>
 	 							<tr>
-	 								<td>Composition of Natural Lands:</td>
+	 								<td>Composition of Priority Natural Lands:</td>
 	 								<td>{hoverInfo.hexagon.hab4}</td>
 	 							</tr>
 	 							<tr>
 	 								<td colSpan="2">
-	 									<b>Water Quality: </b>{' '}
+	 									<b>Water Quality & Quantity: </b>{' '}
 	 								</td>
 	 							</tr>
 	 							<tr>
@@ -41,28 +41,36 @@ const ControlPanel = ({hoverInfo})=> {
 	 								<td>{hoverInfo.hexagon.wq1}</td>
 	 							</tr>
 	 							<tr>
-	 								<td>Stream Abundance:</td>
+	 								<td>Hydrologic Response to Land-Use Change:</td>
 	 								<td>{hoverInfo.hexagon.wq2}</td>
 	 							</tr>
 	 							<tr>
-	 								<td>Hydrologic Response to Land-use:</td>
+	 								<td>Percent Irrigated Agriculture:</td>
 	 								<td>{hoverInfo.hexagon.wq3}</td>
+	 							</tr>
+								<tr>
+	 								<td>Lateral Connectivity to Floodplain:</td>
+	 								<td>{hoverInfo.hexagon.wq4}</td>
+	 							</tr>
+								<tr>
+	 								<td>Composition of Riparizan Zone Lands:</td>
+	 								<td>{hoverInfo.hexagon.wq5}</td>
 	 							</tr>
 	 							<tr>
 	 								<td colSpan="2">
-	 									<b>LCMR:</b>{' '}
+	 									<b>Living Coastal & Marine Resources:</b>{' '}
 	 								</td>
 	 							</tr>
 	 							<tr>
-	 								<td>Biodiversity Index: </td>
+	 								<td>Vulnerable Area of Terrestrial Endemic Species: </td>
 	 								<td>{hoverInfo.hexagon.lcmr1}</td>
 	 							</tr>
 	 							<tr>
-	 								<td>T&E Area:</td>
+	 								<td>T&E Critical Habitat Area:</td>
 	 								<td>{hoverInfo.hexagon.lcmr2}</td>
 	 							</tr>
 	 							<tr>
-	 								<td>T&E Count:</td>
+	 								<td>T&E Number of Species:</td>
 	 								<td>{hoverInfo.hexagon.lcmr3}</td>
 	 							</tr>
 	 							<tr>
@@ -83,7 +91,7 @@ const ControlPanel = ({hoverInfo})=> {
 	 								<td>{hoverInfo.hexagon.cl2}</td>
 	 							</tr>
 	 							<tr>
-	 								<td>Social Vulnerability Index:</td>
+	 								<td>Proximity to Socially Vulnerability Communities:</td>
 	 								<td>{hoverInfo.hexagon.cl3}</td>
 	 							</tr>
 	 							<tr>
@@ -92,23 +100,23 @@ const ControlPanel = ({hoverInfo})=> {
 	 							</tr>
 	 							<tr>
 	 								<td colSpan="2">
-	 									<b>Economy:</b>{' '}
+	 									<b>Gulf Economy:</b>{' '}
 	 								</td>
 	 							</tr>
 	 							<tr>
-	 								<td>Working Lands: </td>
+	 								<td>High Priority Working Lands: </td>
 	 								<td>{hoverInfo.hexagon.eco1}</td>
 	 							</tr>
 	 							<tr>
-	 								<td>Commercial Fishery Index:</td>
+	 								<td>Commercial Fishery Reliance:</td>
 	 								<td>{hoverInfo.hexagon.eco2}</td>
 	 							</tr>
 	 							<tr>
-	 								<td>Recreational Fishery Index:</td>
+	 								<td>Recreational Fishery Engagement:</td>
 	 								<td>{hoverInfo.hexagon.eco3}</td>
 	 							</tr>
 	 							<tr>
-	 								<td>Access & Recreation:</td>
+	 								<td>Access & Recreation - Number of Access Points:</td>
 	 								<td>{hoverInfo.hexagon.eco4}</td>
 	 							</tr>
 	 						</tbody>

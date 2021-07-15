@@ -356,7 +356,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										styles={{ menuPortal: (base, state) => ({ ...base, zIndex: 9999 }) }}
 										menuPortalTarget={document.body}
 										options={[
-											{ value: 'wq1', type: 'checkbox', label: "303(D): Impaired Watershed Area " },
+											{ value: 'wq1', type: 'checkbox', label: '303(D): Impaired Watershed Area' },
 											{ value: 'wq2', type: 'checkbox', label: 'Hydrologic Response to Land-Use Change' },
 											{ value: 'wq3', type: 'checkbox', label: 'Percent Irrigated Agriculture' },
 											{ value: 'wq4', type: 'checkbox', label: 'Lateral Connectivity to Floodplain' },
