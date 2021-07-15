@@ -29,13 +29,13 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 	}
     return (
         <div id="sidebar" className={activeSidebar ? 'active' : ''}>
-            <div
+            	<div
 					id="dismiss"
 					onClick={() => {
 						setActiveSidebar(false);
 					}}
 				>
-					X
+				X
 				</div>
 
 				<div className="ControlWrapper">
@@ -91,7 +91,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 							</Accordion.Toggle>
 							<Accordion.Collapse eventKey="1">
 								<Card.Body>
-									<Form>
+										<Form>
 									    <>
 										<span>Habitat:</span>
 										<Form.Group as={Row}>
@@ -223,7 +223,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 											{ value: 'hab1', label: 'Padus - Connectivity to Existing Protected Area' },
 											{ value: 'hab2', label: 'Connectivity of Natural Lands' },
 											{ value: 'hab3', label: 'Threat of Urbanization' },
-											{ value: 'hab4', label: 'Land Cover - Composition of Natural Lands ' }
+											{ value: 'hab4', label: 'Land Cover - Composition of Priority Natural Lands ' }
 										]}
 										isMulti
 										isClearable={false}
@@ -494,11 +494,11 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 											{ value: 'lcmr1', label: 'Vulnerable Area of Terrestrial Endemic Species' },
 											{
 												value: 'lcmr2',
-												label: 'Threatened and Endangered Species - Critical Habitat Area '
+												label: 'Federally Threatened and Endangered Species - Critical Habitat Area '
 											},
 											{
 												value: 'lcmr3',
-												label: 'Threatened and Endangered Species - Number of Species '
+												label: 'Federally Threatened and Endangered Species - Number of Species '
 											},
 											{ value: 'lcmr4', label: 'Light Pollution Index' }
 										]}

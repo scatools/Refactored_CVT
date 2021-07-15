@@ -8,9 +8,9 @@ const MAPBOX_TOKEN = 'pk.eyJ1IjoiY2h1Y2swNTIwIiwiYSI6ImNrMDk2NDFhNTA0bW0zbHVuZTk
 
 const Map = ({ weightsDone, data }) => {
 	const [ viewport, setViewport ] = useState({
-		latitude: 27.8,
+		latitude: 30.8,
 		longitude: -88.4,
-		zoom: 6,
+		zoom: 5,
 		bearing: 0,
 		pitch: 0
 	});
