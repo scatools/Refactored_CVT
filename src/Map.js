@@ -8,9 +8,9 @@ const MAPBOX_TOKEN = 'pk.eyJ1IjoiY2h1Y2swNTIwIiwiYSI6ImNrMDk2NDFhNTA0bW0zbHVuZTk
 
 const Map = ({ weightsDone, data }) => {
 	const [ viewport, setViewport ] = useState({
-		latitude: 27.8,
+		latitude: 30.8,
 		longitude: -88.4,
-		zoom: 6,
+		zoom: 5,
 		bearing: 0,
 		pitch: 0
 	});
@@ -47,7 +47,7 @@ const Map = ({ weightsDone, data }) => {
 		>
 			{weightsDone && (
 				<>
-				<Source type="vector" url="mapbox://chuck0520.7z43f6wi" maxzoom={22} minzoom={0}>
+				<Source type="vector" url="mapbox://chuck0520.09krrv10" maxzoom={22} minzoom={0}>
 					<Layer
 						{...dataLayer}
 						paint={{

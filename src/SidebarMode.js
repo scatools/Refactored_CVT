@@ -1,5 +1,6 @@
 import React from 'react';
 import { ButtonGroup, ToggleButton } from 'react-bootstrap';
+import ReactTooltip from "react-tooltip";
 
 const SidebarMode = ({ mode, setMode }) => {
 	return (
@@ -17,6 +18,7 @@ const SidebarMode = ({ mode, setMode }) => {
 										<ToggleButton
 											type="radio"
 											variant="outline-secondary"
+											data-tip data-for="update"
                                             name="states"
 				                            value="view"
 				                            checked={mode === 'view'}
@@ -24,6 +26,9 @@ const SidebarMode = ({ mode, setMode }) => {
 										>
 										Filter by States
 										</ToggleButton>
+										<ReactTooltip id="update" place="right">
+        								Coming soon
+     									</ReactTooltip>
 									</ButtonGroup>	
 	);
 };
