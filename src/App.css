@@ -14,8 +14,8 @@
 .control-panel {
   position: absolute;
   top: 10vh;
-  width: 600px;
-  right: -600px;
+  width: 500px;
+  right: -500px;
   transition: all 0.3s;
   opacity: 0.8;
 }

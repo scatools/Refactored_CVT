@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import MapGL, { Source, Layer } from 'react-map-gl';
-import { dataLayer, dataLayerHightLight } from './map-style';
+import { defaultLayer, dataLayer, dataLayerHightLight } from './map-style';
 import ControlPanel from './ControlPanel';
 import Legend from './Legend';
 import mapboxgl from 'mapbox-gl';
@@ -15,9 +15,6 @@ const Map = ({ weightsDone, data }) => {
 	const [zoom, setZoom] = useState(5.5);
 
 	const [ viewport, setViewport ] = useState({
-		// latitude: 27.8,
-		// longitude: -88.4,
-		// zoom: 6,
 		latitude:lat,
 		longitude:lng,
 		zoom: zoom,
@@ -41,12 +38,31 @@ const Map = ({ weightsDone, data }) => {
 						hoveredInfo = {
 							hexagon: hexagonHovered.properties
 						};
-						objectId = hexagonHovered.properties.OBJECTID;
+
+						for (var i in hoveredInfo.hexagon) {
+							// console.log(i);
+							// console.log(typeof i);
+							if ( i.includes("cl") || i.includes("eco") || i.includes("hab") || i.includes("lcmr") || i.includes("wq")) {
+								// i is string type so this won't work
+								//hoveredInfo.hexagon.i = hoveredInfo.hexagon.i.toFixed(2);
+								// instead this works
+								hoveredInfo.hexagon[i] = hoveredInfo.hexagon[i].toFixed(2);
+							}
+						}
+						objectId = hexagonHovered.properties.OBJECTID;						
 					}
 					
 			}
 			setHoverInfo(hoveredInfo);
 			setFilter([ 'in', 'OBJECTID', objectId ? objectId:"" ]);
+
+			// These won't work
+			// let popupWindow = document.getElementById("popupWindow");
+			// let popupWindow = document.getElementsByTagName("ControlPanel")[0];
+			let popupWindow = document.getElementsByClassName("control-panel")[0];
+			if (popupWindow) {
+				popupWindow.style.display = 'block';
+			}
 			let windowContent = document.getElementById("floatingWindow");
 			windowContent.style.display = 'none';
 		}
@@ -54,10 +70,12 @@ const Map = ({ weightsDone, data }) => {
 	
 	const onViewStateChange = (e) => {
 		// console.log(e);
+		let popupWindow = document.getElementsByClassName("control-panel")[0];
+		if (popupWindow) {
+			popupWindow.style.display = 'none';
+		}
 		let windowContent = document.getElementById("floatingWindow");
-		// let popupWindow = document.getElementsByClassName("map.tooltip");
 		windowContent.style.display = 'block';
-		// console.log(popupWindow);
 		if (e.viewState.zoom >= 10) {
 			windowContent.innerHTML = "<p>Click to explore the details of a single hexagonal area.</p>"
 									+"<p>Current zoom level :"
@@ -85,6 +103,13 @@ const Map = ({ weightsDone, data }) => {
 			onClick={onHover}
 			// onHover={onHover}
 		>
+
+			<Source type="vector" url="mapbox://chuck0520.bardd4y7" maxzoom={22} minzoom={0}>
+				<Layer
+					{...defaultLayer}
+				/>
+			</Source>
+
 			{weightsDone && (
 				<>
 				<Source type="vector" url="mapbox://chuck0520.09krrv10" maxzoom={22} minzoom={0}>
@@ -97,7 +122,10 @@ const Map = ({ weightsDone, data }) => {
 					/>
 					<Layer {...dataLayerHightLight} filter={filter} />
 				</Source>
-				<ControlPanel hoverInfo={hoverInfo?hoverInfo:{hexagon:{}}}></ControlPanel>
+				<ControlPanel
+					id="popupWindow"
+					hoverInfo={hoverInfo?hoverInfo:{hexagon:{}}}>
+				</ControlPanel>
 				<Legend></Legend>
 				</>
 			)}
