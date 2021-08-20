@@ -1,38 +1,92 @@
-import React, { useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import MapGL, { Source, Layer } from 'react-map-gl';
-import { dataLayer, dataLayerHightLight } from './map-style';
+import { defaultLayer, dataLayer, dataLayerHightLight } from './map-style';
 import ControlPanel from './ControlPanel';
 import Legend from './Legend';
+import mapboxgl from 'mapbox-gl';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiY2h1Y2swNTIwIiwiYSI6ImNrMDk2NDFhNTA0bW0zbHVuZTk3dHQ1cGUifQ.dkjP73KdE6JMTiLcUoHvUA';
 
 const Map = ({ weightsDone, data }) => {
+	const mapContainer = useRef(null);
+	const map = useRef(null);
+	const [lng, setLng] = useState(-88.4);
+	const [lat, setLat] = useState(27.8);
+	const [zoom, setZoom] = useState(5.5);
+
 	const [ viewport, setViewport ] = useState({
-		latitude: 30.8,
-		longitude: -88.4,
-		zoom: 5,
+		latitude:lat,
+		longitude:lng,
+		zoom: zoom,
 		bearing: 0,
 		pitch: 0
 	});
+	
 	const [ filter, setFilter ] = useState([ 'in', 'OBJECTID', '' ]);
 	const [ hoverInfo, setHoverInfo ] = useState(null);
+	
 	const onHover = (e) => {
-		let objectId = '';
-		let hoveredInfo = null;
-		if (e.features) {
+		// console.log(viewport);
+		if (viewport.zoom >= 10) {
+			let objectId = '';
+			let hoveredInfo = null;
 			
-				const hexagonHovered = e.features[0];
-				if (hexagonHovered) {
-					hoveredInfo = {
-						hexagon: hexagonHovered.properties
-					};
-					objectId = hexagonHovered.properties.OBJECTID;
-				}
+			if (e.features) {
 				
+					const hexagonHovered = e.features[0];
+					if (hexagonHovered) {
+						hoveredInfo = {
+							hexagon: hexagonHovered.properties
+						};
+
+						for (var i in hoveredInfo.hexagon) {
+							// console.log(i);
+							// console.log(typeof i);
+							if ( i.includes("cl") || i.includes("eco") || i.includes("hab") || i.includes("lcmr") || i.includes("wq")) {
+								// i is string type so this won't work
+								//hoveredInfo.hexagon.i = hoveredInfo.hexagon.i.toFixed(2);
+								// instead this works
+								hoveredInfo.hexagon[i] = hoveredInfo.hexagon[i].toFixed(2);
+							}
+						}
+						objectId = hexagonHovered.properties.OBJECTID;						
+					}
+					
+			}
+			setHoverInfo(hoveredInfo);
+			setFilter([ 'in', 'OBJECTID', objectId ? objectId:"" ]);
+
+			// These won't work
+			// let popupWindow = document.getElementById("popupWindow");
+			// let popupWindow = document.getElementsByTagName("ControlPanel")[0];
+			let popupWindow = document.getElementsByClassName("control-panel")[0];
+			if (popupWindow) {
+				popupWindow.style.display = 'block';
+			}
+			let windowContent = document.getElementById("floatingWindow");
+			windowContent.style.display = 'none';
 		}
-		setHoverInfo(hoveredInfo);
-		setFilter([ 'in', 'OBJECTID', objectId ? objectId:"" ]);
 	};
+	
+	const onViewStateChange = (e) => {
+		// console.log(e);
+		let popupWindow = document.getElementsByClassName("control-panel")[0];
+		if (popupWindow) {
+			popupWindow.style.display = 'none';
+		}
+		let windowContent = document.getElementById("floatingWindow");
+		windowContent.style.display = 'block';
+		if (e.viewState.zoom >= 10) {
+			windowContent.innerHTML = "<p>Click to explore the details of a single hexagonal area.</p>"
+									+"<p>Current zoom level :"
+									+e.viewState.zoom.toFixed(1)+"</p>"
+		}
+		else {
+			windowContent.innerHTML = "<p>Please zoom in to level 10 to explore the details of a single hexagonal area.</p>"
+									+"<p>Current zoom level :"
+									+e.viewState.zoom.toFixed(1)+"</p>"
+		}
+	}
 
 	return (
 		<MapGL
@@ -40,11 +94,22 @@ const Map = ({ weightsDone, data }) => {
 			style={{ position: 'fixed' }}
 			width="100vw"
 			height="100vh"
+			showZoom={true}
 			mapStyle="mapbox://styles/mapbox/dark-v9"
-			onViewportChange={(nextViewport) => setViewport(nextViewport)}
+			// onViewportChange={(nextViewport) => setViewport(nextViewport)}
+			onViewportChange={setViewport}
+			onViewStateChange={onViewStateChange}
 			mapboxApiAccessToken={MAPBOX_TOKEN}
 			onClick={onHover}
+			// onHover={onHover}
 		>
+
+			<Source type="vector" url="mapbox://chuck0520.bardd4y7" maxzoom={22} minzoom={0}>
+				<Layer
+					{...defaultLayer}
+				/>
+			</Source>
+
 			{weightsDone && (
 				<>
 				<Source type="vector" url="mapbox://chuck0520.09krrv10" maxzoom={22} minzoom={0}>
@@ -57,7 +122,10 @@ const Map = ({ weightsDone, data }) => {
 					/>
 					<Layer {...dataLayerHightLight} filter={filter} />
 				</Source>
-				<ControlPanel hoverInfo={hoverInfo?hoverInfo:{hexagon:{}}}></ControlPanel>
+				<ControlPanel
+					id="popupWindow"
+					hoverInfo={hoverInfo?hoverInfo:{hexagon:{}}}>
+				</ControlPanel>
 				<Legend></Legend>
 				</>
 			)}

@@ -220,10 +220,10 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
 										menuPortalTarget={document.body}
 										options={[
-											{ value: 'hab1', label: 'Padus - Connectivity to Existing Protected Area' },
+											{ value: 'hab1', label: 'Connectivity to Existing Protected Area' },
 											{ value: 'hab2', label: 'Connectivity of Natural Lands' },
 											{ value: 'hab3', label: 'Threat of Urbanization' },
-											{ value: 'hab4', label: 'Land Cover - Composition of Priority Natural Lands ' }
+											{ value: 'hab4', label: 'Composition of Priority Natural Lands' }
 										]}
 										isMulti
 										isClearable={false}
@@ -252,12 +252,23 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										weights.hab.selected.map((measure) => (
 											<div className="m-2" key={measure.value}>
 												<span style={{ display: 'block' }} className="my-1">
-													{measure.label}
+													{measure.label} &nbsp;
+													<GoInfo data-tip data-for={measure.value} />
+													<ReactTooltip id={measure.value} type='dark'>
+														{/* <span>Definition of HAB</span> */}
+														<span>
+															{measure.label==='Connectivity to Existing Protected Area'? 'Connectivity to existing protected area indicates if the proposed conservation area is close to an area classified as protected by PAD-US 2.0 data.':
+															(measure.label==='Connectivity of Natural Lands'? 'A percent attribute that stands for the proportion of area classified as a hub or corridor.':
+															(measure.label==='Threat of Urbanization'? 'Threat of urbanization (ToU) indicates the likelihood of the given project area or area of interest (AoI) being urbanized by the year 2060.':
+															(measure.label==='Composition of Priority Natural Lands'? 'This attribute prioritizes rare habitat types and those that have been identified as conservation priorities in state and regional plans.':
+															"")))}
+														</span>														
+													</ReactTooltip>
 												</span>
 												<ButtonGroup toggle>
 													<ToggleButton
 														type="radio"
-														data-tip data-for="more"
+														data-tip data-for="hab_more"
 														variant="outline-secondary"
 														name="utility"
 														value="-1"
@@ -272,12 +283,12 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 													>
 														Higher
 													</ToggleButton>
-													<ReactTooltip id="more" place="top">
-        											More is better
+													<ReactTooltip id="hab_more" place="top">
+        											Higher is better
      												</ReactTooltip>
 													<ToggleButton
 														type="radio"
-														data-tip data-for="less"
+														data-tip data-for="hab_less"
 														variant="outline-secondary"
 														name="utility"
 														value="1"
@@ -292,8 +303,8 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 													>
 														Lower
 													</ToggleButton>
-													<ReactTooltip id="less" place="top">
-        											Less is better
+													<ReactTooltip id="hab_less" place="top">
+        											Lower is worse
      												</ReactTooltip>
 												</ButtonGroup>
 												<ButtonGroup toggle className="ml-2">
@@ -389,13 +400,25 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										weights.wq.selected.map((measure) => (
 											<div className="m-2" key={measure.value}>
 												<span style={{ display: 'block' }} className="my-1">
-													{measure.label}
+													{measure.label} &nbsp;
+													<GoInfo data-tip data-for={measure.value} />
+													<ReactTooltip id={measure.value} type='dark'>
+														{/* <span>Definition of WQ</span> */}
+														<span>
+															{measure.label==='303(D): Impaired Watershed Area'? 'A percent attribute that stands for the proportion of impaired watershed within each hexagon.':
+															(measure.label==='Hydrologic Response to Land-Use Change'? 'The magnitude of change in peak flow due to Land-Use/Land-Cover change from 1996 to 2016.':
+															(measure.label==='Percent Irrigated Agriculture'? 'The proportion (%) of the area of interest that is covered by irrigated agriculture.':
+															(measure.label==='Lateral Connectivity to Floodplain'? 'The proportion of floodplain within the area of interest that is connected.':
+															(measure.label==='Composition of Riparizan Zone Lands'? 'An average index value of the composition of lands within a 100-meter buffer of streams.':
+															""))))}
+														</span>														
+													</ReactTooltip>
 												</span>
 												<ButtonGroup toggle>
 													<ToggleButton
 														type="radio"
 														variant="outline-secondary"
-														data-tip data-for="More1"
+														data-tip data-for="wq_more"
 														name="utility"
 														value="-1"
 														checked={measure.utility === '-1'}
@@ -409,13 +432,13 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 													>
 														More
 													</ToggleButton>
-													<ReactTooltip id="More1" place="top">
-													Higher is better
+													<ReactTooltip id="wq_more" place="top">
+													More is better
 													</ReactTooltip>
 													<ToggleButton
 														type="radio"
 														variant="outline-secondary"
-														data-tip data-for="Less1"
+														data-tip data-for="wq_less"
 														name="utility"
 														value="1"
 														checked={measure.utility === '1'}
@@ -429,8 +452,8 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 													>
 														Less
 													</ToggleButton>
-													<ReactTooltip id="Less1" place="top">
-													Lower is better
+													<ReactTooltip id="wq_less" place="top">
+													Less is worse
 													</ReactTooltip>
 												</ButtonGroup>
 												<ButtonGroup toggle className="ml-2">
@@ -491,15 +514,9 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
 										menuPortalTarget={document.body}
 										options={[
-											{ value: 'lcmr1', label: 'Vulnerable Area of Terrestrial Endemic Species' },
-											{
-												value: 'lcmr2',
-												label: 'Federally Threatened and Endangered Species - Critical Habitat Area '
-											},
-											{
-												value: 'lcmr3',
-												label: 'Federally Threatened and Endangered Species - Number of Species '
-											},
+											{ value: 'lcmr1', label: 'Vulnerable Areas of Terrestrial Endemic Species' },
+											{ value: 'lcmr2', label: 'Threatened and Endangered Species - Critical Habitat Area' },
+											{ value: 'lcmr3', label: 'Threatened and Endangered Species - Number of Species' },
 											{ value: 'lcmr4', label: 'Light Pollution Index' }
 										]}
 										isMulti
@@ -530,14 +547,25 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										weights.lcmr.selected.map((measure) => (
 											<div className="m-2" key={measure.value}>
 												<span style={{ display: 'block' }} className="my-1">
-													{measure.label}
+													{measure.label} &nbsp;
+													<GoInfo data-tip data-for={measure.value} />
+													<ReactTooltip id={measure.value} type='dark'>
+														{/* <span>Definition of LCMR</span> */}
+														<span>
+															{measure.label==='Vulnerable Areas of Terrestrial Endemic Species'? 'This measure represents the ratio of endemic species to the amount of protected land in the contiguous U.S.':
+															(measure.label==='Threatened and Endangered Species - Critical Habitat Area'? 'The measure is based on the U.S. Fish and Wildlife Service designated federally threatened and endangered (T&E) critical habitat.':
+															(measure.label==='Threatened and Endangered Species - Number of Species'? 'This attribute measures the number of federally threatened and endangered (T&E) species that have habitat ranges identified within each hexagon.':
+															(measure.label==='Light Pollution Index'? 'An index that measures the intensity of light pollution within each hexagon.':
+															"")))}
+														</span>														
+													</ReactTooltip>
 												</span>
 												<ButtonGroup toggle>
 													<ToggleButton
 														type="radio"
 														variant="outline-secondary"
 														name="utility"
-														data-tip data-for="More"
+														data-tip data-for="lcmr_more"
 														value="-1"
 														checked={measure.utility === '-1'}
 														onChange={(e) =>
@@ -550,14 +578,14 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 													>
 														More
 													</ToggleButton>
-													<ReactTooltip id="More" place="top">
-													More impact less conservations
+													<ReactTooltip id="lcmr_more" place="top">
+													More impact means worse conservation
 													</ReactTooltip>
 													<ToggleButton
 														type="radio"
 														variant="outline-secondary"
 														name="utility"
-														data-tip data-for="Less"
+														data-tip data-for="lcmr_less"
 														value="1"
 														checked={measure.utility === '1'}
 														onChange={(e) =>
@@ -570,8 +598,8 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 													>
 														Less
 													</ToggleButton>
-													<ReactTooltip id="Less" place="top">
-													Less impact better conservations
+													<ReactTooltip id="lcmr_less" place="top">
+													Less impact means better conservation
 													</ReactTooltip>
 												</ButtonGroup>
 												<ButtonGroup toggle className="ml-2">
@@ -635,7 +663,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 											{ value: 'cl1', label: 'National Register of Historic Places' },
 											{ value: 'cl2', label: 'National Heritage Area' },
 											{ value: 'cl3', label: 'Proximity to Socially Vulnerability Communities' },
-											{ value: 'cl4', label: 'Community Threat Index ' }
+											{ value: 'cl4', label: 'Community Threat Index' }
 										]}
 										isMulti
 										placeholder="Select Community Resilience measures..."
@@ -664,13 +692,24 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										weights.cl.selected.map((measure) => (
 											<div className="m-2" key={measure.value}>
 												<span style={{ display: 'block' }} className="my-1">
-													{measure.label}
+													{measure.label} &nbsp;
+													<GoInfo data-tip data-for={measure.value} />
+													<ReactTooltip id={measure.value} type='dark'>
+														{/* <span>Definition of CL</span> */}
+														<span>
+															{measure.label==='National Register of Historic Places'? 'A numeric attribute that represents the counts of historic places within each hexagon.':
+															(measure.label==='National Heritage Area'? 'A percent attribute that stands for the proportion of heritage area within each hexagon.':
+															(measure.label==='Proximity to Socially Vulnerability Communities'? 'This measure indicates the proximity to communities that are socially vulnerable according to the National Oceanic and Atmospheric Administration’s (NOAA) Social Vulnerability Index.':
+															(measure.label==='Community Threat Index'? 'The Community Threat Index (CTI) comes from the Coastal Resilience Evaluation and Siting Tool (CREST).':
+															"")))}
+														</span>														
+													</ReactTooltip>
 												</span>
 												<ButtonGroup toggle>
 													<ToggleButton
 														type="radio"
 														variant="outline-secondary"
-														data-tip data-for="more"
+														data-tip data-for="cl_more"
 														name="utility"
 														value="-1"
 														checked={measure.utility === '-1'}
@@ -684,13 +723,13 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 													>
 														More
 													</ToggleButton>
-													<ReactTooltip id="more" place="top">
-													More score the better
+													<ReactTooltip id="cl_more" place="top">
+													More score means better
 													</ReactTooltip>
 													<ToggleButton
 														type="radio"
 														variant="outline-secondary"
-														data-tip data-for="less"
+														data-tip data-for="cl_less"
 														name="utility"
 														value="1"
 														checked={measure.utility === '1'}
@@ -704,8 +743,8 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 													>
 														Less
 													</ToggleButton>
-													<ReactTooltip id="less" place="top">
-													Less score the better
+													<ReactTooltip id="cl_less" place="top">
+													Less score means worse
 												    </ReactTooltip>
 												</ButtonGroup>
 												<ButtonGroup toggle className="ml-2">
@@ -799,13 +838,24 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										weights.eco.selected.map((measure) => (
 											<div className="m-2" key={measure.value}>
 												<span style={{ display: 'block' }} className="my-1">
-													{measure.label}
+													{measure.label} &nbsp;
+													<GoInfo data-tip data-for={measure.value} />
+													<ReactTooltip id={measure.value} type='dark'>
+														{/* <span>Definition of ECO</span> */}
+														<span>
+															{measure.label==='High Priority Working Lands'? 'The percentage area of pine, cropland, and pasture/hay classes from the National Land Cover Database (NLCD) 2016 classification map.':
+															(measure.label==='Commercial Fishery Reliance'? 'Commercial fishing reliance measures the presence of commercial fishing through fishing activity as shown through permits and vessel landings relative to the population of a community. ':
+															(measure.label==='Recreational Fishery Engagement'? 'Recreational fishing engagement measures the presence of recreational fishing through fishing activity estimates, including charter fishing pressure, private fishing pressure, and shore fishing pressure.':
+															(measure.label==='Access & Recreation - Number of Access Points'? 'This measure indicates the number of points within a 25 km buffer radius of a hexagon, where the public can access places to engage in outdoor recreation.':
+															"")))}
+														</span>														
+													</ReactTooltip>
 												</span>
 												<ButtonGroup toggle>
 													<ToggleButton
 														type="radio"
 														variant="outline-secondary"
-														data-tip data-for="more"
+														data-tip data-for="eco_more"
 														name="utility"
 														value="-1"
 														checked={measure.utility === '-1'}
@@ -819,13 +869,13 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 													>
 														More
 													</ToggleButton>
-													<ReactTooltip id="more" place="top">
-													More score the better
+													<ReactTooltip id="eco_more" place="top">
+													More score means better
 													</ReactTooltip>
 													<ToggleButton
 														type="radio"
 														variant="outline-secondary"
-														data-tip data-for="less"
+														data-tip data-for="eco_less"
 														name="utility"
 														value="1"
 														checked={measure.utility === '1'}
@@ -839,8 +889,8 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 													>
 														Less
 													</ToggleButton>
-													<ReactTooltip id="less" place="top">
-													Less score the better
+													<ReactTooltip id="eco_less" place="top">
+													Less score means worse
 													</ReactTooltip>
 												</ButtonGroup>
 												<ButtonGroup toggle className="ml-2">
@@ -915,14 +965,18 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
                                         <tr>
                                           <th>Measure Name</th>
 										  <th>Goal Related</th>
-                                          <th>Utility &nbsp;<GoInfo data-tip data-for='GoInfo' />
-											<ReactTooltip id='GoInfo' type='dark'>
-  												<span>Pragna this thing worked</span>
+                                          <th>Utility &nbsp;
+											<GoInfo data-tip data-for='utility' />
+											<ReactTooltip id='utility' type='dark'>
+  												<span>Definition of Utility</span>
 											</ReactTooltip>
 										  </th>
-                                          <th>Weights &nbsp;<GoInfo data-tip data-for='GoInfo' />
-											<ReactTooltip id='GoInfo' type='dark'>
-  												<span>Pragna this thing worked</span>
+                                          <th>Weights &nbsp;
+											<GoInfo data-tip data-for='weights' />
+											<ReactTooltip id='weights' type='dark'>
+  												<span>
+													  Measures can be weighted zero, low, medium, or high based on the user’s priorities.
+												</span>
 											</ReactTooltip></th>
                                         </tr>
                                     </thead>
@@ -930,7 +984,19 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										{weights.hab.selected&&
 										   weights.hab.selected.map(measure=>(
 											   <tr key={measure.value}>
-												   <td>{measure.label}</td>
+												   <td>{measure.label} &nbsp;
+														<GoInfo data-tip data-for={measure.value} />
+														<ReactTooltip id={measure.value} type='dark'>
+															{/* <span>Definition of HAB</span> */}
+															<span>
+																{measure.label==='Connectivity to Existing Protected Area'? 'Connectivity to existing protected area indicates if the proposed conservation area is close to an area classified as protected by PAD-US 2.0 data.':
+																(measure.label==='Connectivity of Natural Lands'? 'A percent attribute that stands for the proportion of area classified as a hub or corridor.':
+																(measure.label==='Threat of Urbanization'? 'Threat of urbanization (ToU) indicates the likelihood of the given project area or area of interest (AoI) being urbanized by the year 2060.':
+																(measure.label==='Composition of Priority Natural Lands'? 'This attribute prioritizes rare habitat types and those that have been identified as conservation priorities in state and regional plans.':
+																"")))}
+															</span>														
+														</ReactTooltip>
+												   </td>
 												   <td>Habitat</td>
 												   <td>{measure.utility==='1'? 'Desired':'UnDesired'}</td>
 												   <td>{measure.weight.toUpperCase()}</td>
@@ -940,7 +1006,20 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										{weights.wq.selected&&
 										   weights.wq.selected.map(measure=>(
 											   <tr key={measure.value}>
-												   <td>{measure.label}</td>
+												   <td>{measure.label} &nbsp;
+														<GoInfo data-tip data-for={measure.value} />
+														<ReactTooltip id={measure.value} type='dark'>
+															{/* <span>Definition of WQ</span> */}
+															<span>
+																{measure.label==='303(D): Impaired Watershed Area'? 'A percent attribute that stands for the proportion of impaired watershed within each hexagon.':
+																(measure.label==='Hydrologic Response to Land-Use Change'? 'The magnitude of change in peak flow due to Land-Use/Land-Cover change from 1996 to 2016.':
+																(measure.label==='Percent Irrigated Agriculture'? 'The proportion (%) of the area of interest that is covered by irrigated agriculture.':
+																(measure.label==='Lateral Connectivity to Floodplain'? 'The proportion of floodplain within the area of interest that is connected.':
+																(measure.label==='Composition of Riparizan Zone Lands'? 'An average index value of the composition of lands within a 100-meter buffer of streams.':
+																""))))}
+															</span>														
+														</ReactTooltip>											   
+												   </td>
 												   <td>Water Quality</td>
 												   <td>{measure.utility==='1'? 'Desired':'UnDesired'}</td>
 												   <td>{measure.weight.toUpperCase()}</td>
@@ -950,7 +1029,19 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										{weights.lcmr.selected&&
 										   weights.lcmr.selected.map(measure=>(
 											   <tr key={measure.value}>
-												   <td>{measure.label}</td>
+												   <td>{measure.label} &nbsp;
+														<GoInfo data-tip data-for={measure.value} />
+														<ReactTooltip id={measure.value} type='dark'>
+															{/* <span>Definition of LCMR</span> */}
+															<span>
+																{measure.label==='Vulnerable Areas of Terrestrial Endemic Species'? 'This measure represents the ratio of endemic species to the amount of protected land in the contiguous U.S.':
+																(measure.label==='Threatened and Endangered Species - Critical Habitat Area'? 'The measure is based on the U.S. Fish and Wildlife Service designated federally threatened and endangered (T&E) critical habitat.':
+																(measure.label==='Threatened and Endangered Species - Number of Species'? 'This attribute measures the number of federally threatened and endangered (T&E) species that have habitat ranges identified within each hexagon.':
+																(measure.label==='Light Pollution Index'? 'An index that measures the intensity of light pollution within each hexagon.':
+																"")))}
+															</span>														
+														</ReactTooltip>
+												   </td>
 												   <td>LCMR</td>
 												   <td>{measure.utility==='1'? 'Desired':'UnDesired'}</td>
 												   <td>{measure.weight.toUpperCase()}</td>
@@ -960,7 +1051,19 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										{weights.cl.selected&&
 										   weights.cl.selected.map(measure=>(
 											   <tr key={measure.value}>
-												   <td>{measure.label}</td>
+												   <td>{measure.label} &nbsp;
+														<GoInfo data-tip data-for={measure.value} />
+														<ReactTooltip id={measure.value} type='dark'>
+															{/* <span>Definition of CL</span> */}
+															<span>
+																{measure.label==='National Register of Historic Places'? 'A numeric attribute that represents the counts of historic places within each hexagon.':
+																(measure.label==='National Heritage Area'? 'A percent attribute that stands for the proportion of heritage area within each hexagon.':
+																(measure.label==='Proximity to Socially Vulnerability Communities'? 'This measure indicates the proximity to communities that are socially vulnerable according to the National Oceanic and Atmospheric Administration’s (NOAA) Social Vulnerability Index.':
+																(measure.label==='Community Threat Index'? 'The Community Threat Index (CTI) comes from the Coastal Resilience Evaluation and Siting Tool (CREST).':
+																"")))}
+															</span>														
+														</ReactTooltip>
+												   </td>
 												   <td>Resilience</td>
 												   <td>{measure.utility==='1'? 'Desired':'UnDesired'}</td>
 												   <td>{measure.weight.toUpperCase()}</td>
@@ -970,7 +1073,19 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										{weights.eco.selected&&
 										   weights.eco.selected.map(measure=>(
 											   <tr key={measure.value}>
-												   <td>{measure.label}</td>
+												   <td>{measure.label} &nbsp;
+														<GoInfo data-tip data-for={measure.value} />
+														<ReactTooltip id={measure.value} type='dark'>
+															{/* <span>Definition of ECO</span> */}
+															<span>
+																{measure.label==='High Priority Working Lands'? 'The percentage area of pine, cropland, and pasture/hay classes from the National Land Cover Database (NLCD) 2016 classification map.':
+																(measure.label==='Commercial Fishery Reliance'? 'Commercial fishing reliance measures the presence of commercial fishing through fishing activity as shown through permits and vessel landings relative to the population of a community. ':
+																(measure.label==='Recreational Fishery Engagement'? 'Recreational fishing engagement measures the presence of recreational fishing through fishing activity estimates, including charter fishing pressure, private fishing pressure, and shore fishing pressure.':
+																(measure.label==='Access & Recreation - Number of Access Points'? 'This measure indicates the number of points within a 25 km buffer radius of a hexagon, where the public can access places to engage in outdoor recreation.':
+																"")))}
+															</span>														
+														</ReactTooltip>
+												   </td>
 												   <td>Economy</td>
 												   <td>{measure.utility==='1'? 'Desired':'UnDesired'}</td>
 												   <td>{measure.weight.toUpperCase()}</td>
