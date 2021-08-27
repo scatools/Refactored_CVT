@@ -371,7 +371,8 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 											{ value: 'wq2', type: 'checkbox', label: 'Hydrologic Response to Land-Use Change' },
 											{ value: 'wq3', type: 'checkbox', label: 'Percent Irrigated Agriculture' },
 											{ value: 'wq4', type: 'checkbox', label: 'Lateral Connectivity to Floodplain' },
-											{ value: 'wq5', type: 'checkbox', label: 'Composition of Riparizan Zone Lands' }
+											{ value: 'wq5', type: 'checkbox', label: 'Composition of Riparizan Zone Lands' },
+											{ value: 'wq6', type: 'checkbox', label: 'Presence of Impoundments' }
 										]}
 										isMulti
 										placeholder="Select Water Quality & Quantity measures..."
@@ -410,7 +411,8 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 															(measure.label==='Percent Irrigated Agriculture'? 'The proportion (%) of the area of interest that is covered by irrigated agriculture.':
 															(measure.label==='Lateral Connectivity to Floodplain'? 'The proportion of floodplain within the area of interest that is connected.':
 															(measure.label==='Composition of Riparizan Zone Lands'? 'An average index value of the composition of lands within a 100-meter buffer of streams.':
-															""))))}
+															(measure.label==='Presence of Impoundments'? 'This measure describes whether or not an area is impacted by hydromodification.':
+															"")))))}
 														</span>														
 													</ReactTooltip>
 												</span>
@@ -517,7 +519,9 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 											{ value: 'lcmr1', label: 'Vulnerable Areas of Terrestrial Endemic Species' },
 											{ value: 'lcmr2', label: 'Threatened and Endangered Species - Critical Habitat Area' },
 											{ value: 'lcmr3', label: 'Threatened and Endangered Species - Number of Species' },
-											{ value: 'lcmr4', label: 'Light Pollution Index' }
+											{ value: 'lcmr4', label: 'Light Pollution Index' },
+											{ value: 'lcmr5', label: 'Terrestrial Vertebrate Biodiversity' },
+											{ value: 'lcmr6', label: 'Vulnerability to Invasive Plants' }
 										]}
 										isMulti
 										placeholder="Select Living Coastal & Marine Resources measures..."
@@ -556,7 +560,9 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 															(measure.label==='Threatened and Endangered Species - Critical Habitat Area'? 'The measure is based on the U.S. Fish and Wildlife Service designated federally threatened and endangered (T&E) critical habitat.':
 															(measure.label==='Threatened and Endangered Species - Number of Species'? 'This attribute measures the number of federally threatened and endangered (T&E) species that have habitat ranges identified within each hexagon.':
 															(measure.label==='Light Pollution Index'? 'An index that measures the intensity of light pollution within each hexagon.':
-															"")))}
+															(measure.label==='Terrestrial Vertebrate Biodiversity'? 'Definition of Terrestrial Vertebrate Biodiversity.':
+															(measure.label==='Vulnerability to Invasive Plants'? 'Definition of Vulnerability to Invasive Plants.':
+															"")))))}
 														</span>														
 													</ReactTooltip>
 												</span>
@@ -1141,7 +1147,7 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 																	.map(goal=>['*',goal[1].weight/100,
 																	                ["/",["+",0, ...goal[1].selected.map(measure=>{
 																							if(measure.utility==='1'){
-																								console.log( ['*',weightList[measure.weight],['number',['get', measure.value]]])
+																								// console.log( ['*',weightList[measure.weight],['number',['get', measure.value]]])
 																								return ['*',weightList[measure.weight],['number',['get', measure.value]]]
 																							}else{
 																								return ['+',1, ['*',-1*weightList[measure.weight],['number',['get', measure.value]]]]
