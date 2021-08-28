@@ -56,6 +56,10 @@ const ControlPanel = ({hoverInfo})=> {
 	 								<td>Composition of Riparizan Zone Lands:</td>
 	 								<td>{hoverInfo.hexagon.wq5}</td>
 	 							</tr>
+								 <tr>
+	 								<td>Presence of Impoundments:</td>
+	 								<td>{hoverInfo.hexagon.wq6}</td>
+	 							</tr>
 	 							<tr>
 	 								<td colSpan="2">
 	 									<b>Living Coastal & Marine Resources:</b>{' '}
@@ -76,6 +80,14 @@ const ControlPanel = ({hoverInfo})=> {
 	 							<tr>
 	 								<td>Light Pollution Index:</td>
 	 								<td>{hoverInfo.hexagon.lcmr4}</td>
+	 							</tr>
+								 <tr>
+	 								<td>Terrestrial Vertebrate Biodiversity:</td>
+	 								<td>{hoverInfo.hexagon.lcmr5}</td>
+	 							</tr>
+								 <tr>
+	 								<td>Vulnerability to Invasive Plants:</td>
+	 								<td>{hoverInfo.hexagon.lcmr6}</td>
 	 							</tr>
 	 							<tr>
 	 								<td colSpan="2">
