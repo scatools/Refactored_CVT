@@ -77,13 +77,13 @@ const Map = ({ weightsDone, data }) => {
 		let windowContent = document.getElementById("floatingWindow");
 		windowContent.style.display = 'block';
 		if (e.viewState.zoom >= 10) {
-			windowContent.innerHTML = "<p>Click to explore the details of a single hexagonal area.</p>"
-									+"<p>Current zoom level :"
+			windowContent.innerHTML = "<p><em>Click to explore the details of a single hexagonal area.</em></p>"
+									+"<p>Current zoom level : "
 									+e.viewState.zoom.toFixed(1)+"</p>"
 		}
 		else {
-			windowContent.innerHTML = "<p>Please zoom in to level 10 to explore the details of a single hexagonal area.</p>"
-									+"<p>Current zoom level :"
+			windowContent.innerHTML = "<p><em>Please zoom in to level 10 to explore the details of a single hexagonal area.</em></p>"
+									+"<p>Current zoom level : "
 									+e.viewState.zoom.toFixed(1)+"</p>"
 		}
 	}
