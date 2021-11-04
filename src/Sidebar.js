@@ -200,7 +200,12 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 									</span>
 									<br></br>
 									<br></br>
-									<Accordion.Toggle eventKey="2" as={Button} variant="dark">
+									<Accordion.Toggle eventKey="2" as={Button} variant="dark" 
+													  onClick={()=>{
+															if(Object.values(weights).reduce((a,b)=>{return a+b.weight},0)!==100){
+																handleShow()
+															}
+													  }}>
 										Next
 									</Accordion.Toggle>
 								</Card.Body>
@@ -367,10 +372,10 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										styles={{ menuPortal: (base, state) => ({ ...base, zIndex: 9999 }) }}
 										menuPortalTarget={document.body}
 										options={[
-											{ value: 'wq1', type: 'checkbox', label: '303(D): Impaired Watershed Area' },
+											{ value: 'wq1', type: 'checkbox', label: '303(d): Impaired Watershed Area' },
 											{ value: 'wq2', type: 'checkbox', label: 'Hydrologic Response to Land-Use Change' },
 											{ value: 'wq3', type: 'checkbox', label: 'Percent Irrigated Agriculture' },
-											{ value: 'wq4', type: 'checkbox', label: 'Lateral Connectivity to Floodplain' },
+											{ value: 'wq4', type: 'checkbox', label: 'Lateral Connectivity of Floodplain' },
 											{ value: 'wq5', type: 'checkbox', label: 'Composition of Riparizan Zone Lands' },
 											{ value: 'wq6', type: 'checkbox', label: 'Presence of Impoundments' }
 										]}
@@ -406,10 +411,10 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 													<ReactTooltip id={measure.value} type='dark'>
 														{/* <span>Definition of WQ</span> */}
 														<span>
-															{measure.label==='303(D): Impaired Watershed Area'? 'A percent attribute that stands for the proportion of impaired watershed within each hexagon.':
+															{measure.label==='303(d): Impaired Watershed Area'? 'A percent attribute that stands for the proportion of impaired watershed within each hexagon.':
 															(measure.label==='Hydrologic Response to Land-Use Change'? 'The magnitude of change in peak flow due to Land-Use/Land-Cover change from 1996 to 2016.':
 															(measure.label==='Percent Irrigated Agriculture'? 'The proportion (%) of the area of interest that is covered by irrigated agriculture.':
-															(measure.label==='Lateral Connectivity to Floodplain'? 'The proportion of floodplain within the area of interest that is connected.':
+															(measure.label==='Lateral Connectivity of Floodplain'? 'The proportion of floodplain within the area of interest that is connected.':
 															(measure.label==='Composition of Riparizan Zone Lands'? 'An average index value of the composition of lands within a 100-meter buffer of streams.':
 															(measure.label==='Presence of Impoundments'? 'This measure describes whether or not an area is impacted by hydromodification.':
 															"")))))}
@@ -812,8 +817,8 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 										menuPortalTarget={document.body}
 										options={[
 											{ value: 'eco1', label: 'High Priority Working Lands' },
-											{ value: 'eco2', label: 'Commercial Fishery Reliance' },
-											{ value: 'eco3', label: 'Recreational Fishery Engagement' },
+											{ value: 'eco2', label: 'Commercial Fishing Reliance' },
+											{ value: 'eco3', label: 'Recreational Fishing Engagement' },
 											{ value: 'eco4', label: 'Access & Recreation - Number of Access Points' }
 										]}
 										isMulti
@@ -850,8 +855,8 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 														{/* <span>Definition of ECO</span> */}
 														<span>
 															{measure.label==='High Priority Working Lands'? 'The percentage area of pine, cropland, and pasture/hay classes from the National Land Cover Database (NLCD) 2016 classification map.':
-															(measure.label==='Commercial Fishery Reliance'? 'Commercial fishing reliance measures the presence of commercial fishing through fishing activity as shown through permits and vessel landings relative to the population of a community. ':
-															(measure.label==='Recreational Fishery Engagement'? 'Recreational fishing engagement measures the presence of recreational fishing through fishing activity estimates, including charter fishing pressure, private fishing pressure, and shore fishing pressure.':
+															(measure.label==='Commercial Fishing Reliance'? 'Commercial fishing reliance measures the presence of commercial fishing through fishing activity as shown through permits and vessel landings relative to the population of a community. ':
+															(measure.label==='Recreational Fishing Engagement'? 'Recreational fishing engagement measures the presence of recreational fishing through fishing activity estimates, including charter fishing pressure, private fishing pressure, and shore fishing pressure.':
 															(measure.label==='Access & Recreation - Number of Access Points'? 'This measure indicates the number of points within a 25 km buffer radius of a hexagon, where the public can access places to engage in outdoor recreation.':
 															"")))}
 														</span>														
@@ -1017,10 +1022,10 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 														<ReactTooltip id={measure.value} type='dark'>
 															{/* <span>Definition of WQ</span> */}
 															<span>
-																{measure.label==='303(D): Impaired Watershed Area'? 'A percent attribute that stands for the proportion of impaired watershed within each hexagon.':
+																{measure.label==='303(d): Impaired Watershed Area'? 'A percent attribute that stands for the proportion of impaired watershed within each hexagon.':
 																(measure.label==='Hydrologic Response to Land-Use Change'? 'The magnitude of change in peak flow due to Land-Use/Land-Cover change from 1996 to 2016.':
 																(measure.label==='Percent Irrigated Agriculture'? 'The proportion (%) of the area of interest that is covered by irrigated agriculture.':
-																(measure.label==='Lateral Connectivity to Floodplain'? 'The proportion of floodplain within the area of interest that is connected.':
+																(measure.label==='Lateral Connectivity of Floodplain'? 'The proportion of floodplain within the area of interest that is connected.':
 																(measure.label==='Composition of Riparizan Zone Lands'? 'An average index value of the composition of lands within a 100-meter buffer of streams.':
 																""))))}
 															</span>														
@@ -1085,8 +1090,8 @@ const Sidebar = ({activeSidebar,setActiveSidebar,setWeightsDone, setData}) =>{
 															{/* <span>Definition of ECO</span> */}
 															<span>
 																{measure.label==='High Priority Working Lands'? 'The percentage area of pine, cropland, and pasture/hay classes from the National Land Cover Database (NLCD) 2016 classification map.':
-																(measure.label==='Commercial Fishery Reliance'? 'Commercial fishing reliance measures the presence of commercial fishing through fishing activity as shown through permits and vessel landings relative to the population of a community. ':
-																(measure.label==='Recreational Fishery Engagement'? 'Recreational fishing engagement measures the presence of recreational fishing through fishing activity estimates, including charter fishing pressure, private fishing pressure, and shore fishing pressure.':
+																(measure.label==='Commercial Fishing Reliance'? 'Commercial fishing reliance measures the presence of commercial fishing through fishing activity as shown through permits and vessel landings relative to the population of a community. ':
+																(measure.label==='Recreational Fishing Engagement'? 'Recreational fishing engagement measures the presence of recreational fishing through fishing activity estimates, including charter fishing pressure, private fishing pressure, and shore fishing pressure.':
 																(measure.label==='Access & Recreation - Number of Access Points'? 'This measure indicates the number of points within a 25 km buffer radius of a hexagon, where the public can access places to engage in outdoor recreation.':
 																"")))}
 															</span>														
