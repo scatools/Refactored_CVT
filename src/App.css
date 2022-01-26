@@ -1,15 +1,15 @@
 .map.tooltip {
-    position: absolute;
-    margin: 8px;
-    padding: 4px;
-    background: rgba(12, 12, 12, 0.8);
-    color: rgb(252, 252, 252);
-    max-width: 300px;
-    font-size: 13px;
-    z-index: 9;
-    pointer-events: none;
-    opacity: 0.8;
-  }
+  position: absolute;
+  margin: 8px;
+  padding: 4px;
+  background: rgba(12, 12, 12, 0.8);
+  color: rgb(252, 252, 252);
+  max-width: 300px;
+  font-size: 13px;
+  z-index: 9;
+  pointer-events: none;
+  opacity: 0.8;
+}
 
 .control-panel {
   position: absolute;
@@ -26,11 +26,11 @@
 
 .legend {
   position: absolute;
-  top:75vh;
+  top: 75vh;
   left: 1vw;
   background-color: rgb(247, 245, 245);
   border-radius: 30px;
-  padding:10px
+  padding: 10px;
 }
 
 .legend .legend-title {
@@ -39,20 +39,23 @@
   font-weight: bold;
   font-size: 90%;
 }
+
 .legend .legend-scale ul {
   margin: 0;
   margin-bottom: 5px;
   padding: 0;
   float: left;
   list-style: none;
-  }
+}
+
 .legend .legend-scale ul li {
   font-size: 80%;
   list-style: none;
   margin-left: 0;
   line-height: 18px;
   margin-bottom: 2px;
-  }
+}
+
 .legend ul.legend-labels li span {
   display: block;
   float: left;
@@ -61,4 +64,84 @@
   margin-right: 5px;
   margin-left: 0;
   border: 1px solid #999;
-  }
+}
+
+nav a {
+  color: white;
+}
+
+nav a:hover {
+  color: white;
+}
+
+.navbar-nav {
+  width: 100%;
+}
+
+.nav-right {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-top: 30px;
+}
+
+.form-group input {
+  margin: 0;
+}
+
+.form-btn-container {
+  margin: 30px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn-success {
+  width: 50%;
+  margin: 10px;
+}
+
+.btn-danger {
+  margin: 10px;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#wq1,
+#wq2,
+#wq3,
+#wq4,
+#wq5,
+#wq6,
+#lcmr1,
+#lcmr2,
+#lcmr3,
+#lcmr4,
+#lcmr5,
+#lcmr6,
+#cl1,
+#cl2,
+#cl3,
+#cl4,
+#eco1,
+#eco2,
+#eco3,
+#eco4,
+#hab1,
+#hab2,
+#hab3,
+#hab4 {
+  border: solid 1px white;
+  width: 40%;
+}
