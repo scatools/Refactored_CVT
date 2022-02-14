@@ -1,4 +1,5 @@
 .map.tooltip {
+<<<<<<< HEAD
   position: absolute;
   margin: 8px;
   padding: 4px;
@@ -9,6 +10,18 @@
   z-index: 9;
   pointer-events: none;
   opacity: 0.8;
+=======
+    position: absolute;
+    margin: 8px;
+    padding: 4px;
+    background: rgba(12, 12, 12, 0.8);
+    color: rgb(252, 252, 252);
+    max-width: 300px;
+    font-size: 13px;
+    z-index: 9;
+    pointer-events: none;
+    opacity: 0.8;
+>>>>>>> 0be4f0fdbb201901aa499042d2c5e5952223b41a
 }
 
 .control-panel {
@@ -64,6 +77,7 @@
   margin-right: 5px;
   margin-left: 0;
   border: 1px solid #999;
+<<<<<<< HEAD
 }
 
 nav a {
@@ -145,3 +159,6 @@ nav a:hover {
   border: solid 1px white;
   width: 40%;
 }
+=======
+}
+>>>>>>> 0be4f0fdbb201901aa499042d2c5e5952223b41a
