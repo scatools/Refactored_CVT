@@ -99,7 +99,7 @@ color: #fff;
 ----------------------------------------------------- */
 
 #floatingWindow {
-  position: absolute;
+  position: fixed;
   top: 80px;
   right: 20px;
   color: #fff;
