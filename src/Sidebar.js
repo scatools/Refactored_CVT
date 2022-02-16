@@ -318,20 +318,42 @@ const Sidebar = ({
                       <span style={{ display: "block" }} className="my-1">
                         {measure.label} &nbsp;
                         <GoInfo data-tip data-for={measure.value} />
-                        <ReactTooltip id={measure.value} type="dark">
+                        <ReactTooltip
+                          delayHide={500}
+                          delayUpdate={500}
+                          id={measure.value}
+                          clickable="true"
+                          type="dark"
+                        >
                           <span>
                             {measure.label ===
-                            "Connectivity to Existing Protected Area"
-                              ? "Connectivity to existing protected area indicates if the proposed conservation area is close to an area classified as protected by PAD-US 2.0 data."
-                              : measure.label ===
-                                "Connectivity of Natural Lands"
-                              ? "A percent attribute that stands for the proportion of area classified as a hub or corridor."
-                              : measure.label === "Threat of Urbanization"
-                              ? "Threat of urbanization (ToU) indicates the likelihood of the given project area or area of interest (AoI) being urbanized by the year 2060."
-                              : measure.label ===
-                                "Composition of Priority Natural Lands"
-                              ? "This attribute prioritizes rare habitat types and those that have been identified as conservation priorities in state and regional plans."
-                              : ""}
+                            "Connectivity to Existing Protected Area" ? (
+                              <>
+                                Connectivity to existing protected area
+                                indicates if the proposed conservation area is
+                                close to an area classified as protected by
+                                PAD-US 2.0 data.
+                                <br />
+                                <a
+                                  href="https://scatoolsuite.gitbook.io/sca-tool-suite/support/habitat#connectivity-to-existing-protected-area"
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="tool-link"
+                                >
+                                  Click for more
+                                </a>
+                              </>
+                            ) : measure.label ===
+                              "Connectivity of Natural Lands" ? (
+                              "A percent attribute that stands for the proportion of area classified as a hub or corridor."
+                            ) : measure.label === "Threat of Urbanization" ? (
+                              "Threat of urbanization (ToU) indicates the likelihood of the given project area or area of interest (AoI) being urbanized by the year 2060."
+                            ) : measure.label ===
+                              "Composition of Priority Natural Lands" ? (
+                              "This attribute prioritizes rare habitat types and those that have been identified as conservation priorities in state and regional plans."
+                            ) : (
+                              ""
+                            )}
                           </span>
                         </ReactTooltip>
                       </span>
@@ -583,7 +605,13 @@ const Sidebar = ({
                       <span style={{ display: "block" }} className="my-1">
                         {measure.label} &nbsp;
                         <GoInfo data-tip data-for={measure.value} />
-                        <ReactTooltip id={measure.value} type="dark">
+                        <ReactTooltip
+                          delayHide={500}
+                          delayUpdate={500}
+                          id={measure.value}
+                          clickable="true"
+                          type="dark"
+                        >
                           <span>
                             {measure.label === "303(d): Impaired Watershed Area"
                               ? "A percent attribute that stands for the proportion of impaired watershed within each hexagon."
@@ -875,7 +903,13 @@ const Sidebar = ({
                       <span style={{ display: "block" }} className="my-1">
                         {measure.label} &nbsp;
                         <GoInfo data-tip data-for={measure.value} />
-                        <ReactTooltip id={measure.value} type="dark">
+                        <ReactTooltip
+                          delayHide={500}
+                          delayUpdate={500}
+                          id={measure.value}
+                          clickable="true"
+                          type="dark"
+                        >
                           <span>
                             {measure.label ===
                             "Vulnerable Areas of Terrestrial Endemic Species"
@@ -1154,7 +1188,13 @@ const Sidebar = ({
                       <span style={{ display: "block" }} className="my-1">
                         {measure.label} &nbsp;
                         <GoInfo data-tip data-for={measure.value} />
-                        <ReactTooltip id={measure.value} type="dark">
+                        <ReactTooltip
+                          delayHide={500}
+                          delayUpdate={500}
+                          id={measure.value}
+                          clickable="true"
+                          type="dark"
+                        >
                           <span>
                             {measure.label ===
                             "National Register of Historic Places"
@@ -1401,7 +1441,13 @@ const Sidebar = ({
                       <span style={{ display: "block" }} className="my-1">
                         {measure.label} &nbsp;
                         <GoInfo data-tip data-for={measure.value} />
-                        <ReactTooltip id={measure.value} type="dark">
+                        <ReactTooltip
+                          delayHide={500}
+                          delayUpdate={500}
+                          id={measure.value}
+                          clickable="true"
+                          type="dark"
+                        >
                           <span>
                             {measure.label === "High Priority Working Lands"
                               ? "The percentage area of pine, cropland, and pasture/hay classes from the National Land Cover Database (NLCD) 2016 classification map."
@@ -1646,20 +1692,43 @@ const Sidebar = ({
                           <td>
                             {measure.label} &nbsp;
                             <GoInfo data-tip data-for={measure.value} />
-                            <ReactTooltip id={measure.value} type="dark">
+                            <ReactTooltip
+                              delayHide={500}
+                              delayUpdate={500}
+                              id={measure.value}
+                              clickable="true"
+                              type="dark"
+                            >
                               <span>
                                 {measure.label ===
-                                "Connectivity to Existing Protected Area"
-                                  ? "Connectivity to existing protected area indicates if the proposed conservation area is close to an area classified as protected by PAD-US 2.0 data."
-                                  : measure.label ===
-                                    "Connectivity of Natural Lands"
-                                  ? "A percent attribute that stands for the proportion of area classified as a hub or corridor."
-                                  : measure.label === "Threat of Urbanization"
-                                  ? "Threat of urbanization (ToU) indicates the likelihood of the given project area or area of interest (AoI) being urbanized by the year 2060."
-                                  : measure.label ===
-                                    "Composition of Priority Natural Lands"
-                                  ? "This attribute prioritizes rare habitat types and those that have been identified as conservation priorities in state and regional plans."
-                                  : ""}
+                                "Connectivity to Existing Protected Area" ? (
+                                  <>
+                                    Connectivity to existing protected area
+                                    indicates if the proposed conservation area
+                                    is close to an area classified as protected
+                                    by PAD-US 2.0 data.
+                                    <br />
+                                    <a
+                                      href="https://scatoolsuite.gitbook.io/sca-tool-suite/support/habitat#composition-of-priority-natural-lands"
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      className="tool-link"
+                                    >
+                                      Click for more
+                                    </a>
+                                  </>
+                                ) : measure.label ===
+                                  "Connectivity of Natural Lands" ? (
+                                  "A percent attribute that stands for the proportion of area classified as a hub or corridor."
+                                ) : measure.label ===
+                                  "Threat of Urbanization" ? (
+                                  "Threat of urbanization (ToU) indicates the likelihood of the given project area or area of interest (AoI) being urbanized by the year 2060."
+                                ) : measure.label ===
+                                  "Composition of Priority Natural Lands" ? (
+                                  "This attribute prioritizes rare habitat types and those that have been identified as conservation priorities in state and regional plans."
+                                ) : (
+                                  ""
+                                )}
                               </span>
                             </ReactTooltip>
                           </td>
@@ -1700,7 +1769,13 @@ const Sidebar = ({
                           <td>
                             {measure.label} &nbsp;
                             <GoInfo data-tip data-for={measure.value} />
-                            <ReactTooltip id={measure.value} type="dark">
+                            <ReactTooltip
+                              delayHide={500}
+                              delayUpdate={500}
+                              id={measure.value}
+                              clickable="true"
+                              type="dark"
+                            >
                               <span>
                                 {measure.label ===
                                 "303(d): Impaired Watershed Area"
@@ -1772,7 +1847,13 @@ const Sidebar = ({
                           <td>
                             {measure.label} &nbsp;
                             <GoInfo data-tip data-for={measure.value} />
-                            <ReactTooltip id={measure.value} type="dark">
+                            <ReactTooltip
+                              delayHide={500}
+                              delayUpdate={500}
+                              id={measure.value}
+                              clickable="true"
+                              type="dark"
+                            >
                               <span>
                                 {measure.label ===
                                 "Vulnerable Areas of Terrestrial Endemic Species"
@@ -1844,7 +1925,13 @@ const Sidebar = ({
                           <td>
                             {measure.label} &nbsp;
                             <GoInfo data-tip data-for={measure.value} />
-                            <ReactTooltip id={measure.value} type="dark">
+                            <ReactTooltip
+                              delayHide={500}
+                              delayUpdate={500}
+                              id={measure.value}
+                              clickable="true"
+                              type="dark"
+                            >
                               <span>
                                 {measure.label ===
                                 "National Register of Historic Places"
@@ -1899,7 +1986,13 @@ const Sidebar = ({
                           <td>
                             {measure.label} &nbsp;
                             <GoInfo data-tip data-for={measure.value} />
-                            <ReactTooltip id={measure.value} type="dark">
+                            <ReactTooltip
+                              delayHide={500}
+                              delayUpdate={500}
+                              id={measure.value}
+                              clickable="true"
+                              type="dark"
+                            >
                               <span>
                                 {measure.label === "High Priority Working Lands"
                                   ? "The percentage area of pine, cropland, and pasture/hay classes from the National Land Cover Database (NLCD) 2016 classification map."

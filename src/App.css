@@ -1,5 +1,4 @@
 .map.tooltip {
-<<<<<<< HEAD
   position: absolute;
   margin: 8px;
   padding: 4px;
@@ -9,28 +8,14 @@
   font-size: 13px;
   z-index: 9;
   pointer-events: none;
-  opacity: 0.8;
-=======
-    position: absolute;
-    margin: 8px;
-    padding: 4px;
-    background: rgba(12, 12, 12, 0.8);
-    color: rgb(252, 252, 252);
-    max-width: 300px;
-    font-size: 13px;
-    z-index: 9;
-    pointer-events: none;
-    opacity: 0.8;
->>>>>>> 0be4f0fdbb201901aa499042d2c5e5952223b41a
 }
 
 .control-panel {
   position: absolute;
-  top: 10vh;
+  top: 56px;
   width: 500px;
   right: -500px;
   transition: all 0.3s;
-  opacity: 0.8;
 }
 
 .control-panel.active {
@@ -77,7 +62,6 @@
   margin-right: 5px;
   margin-left: 0;
   border: 1px solid #999;
-<<<<<<< HEAD
 }
 
 nav a {
@@ -159,6 +143,16 @@ nav a:hover {
   border: solid 1px white;
   width: 40%;
 }
-=======
+
+.__react_component_tooltip {
+  max-width: 350px;
 }
->>>>>>> 0be4f0fdbb201901aa499042d2c5e5952223b41a
+
+.tool-link {
+  color: whitesmoke;
+  text-decoration: underline;
+}
+
+.tool-link:hover {
+  color: rgb(0, 86, 179);
+}
