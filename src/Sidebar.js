@@ -125,7 +125,7 @@ const Sidebar = ({
 
           <Card className="my-2">
             <Accordion.Toggle as={Card.Header} eventKey="1">
-              RESTORE Goal Weights:
+              RESTORE Council Goal Weights:
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="1">
               <Card.Body>
@@ -1155,7 +1155,7 @@ const Sidebar = ({
                     { value: "cl2", label: "National Heritage Area" },
                     {
                       value: "cl3",
-                      label: "Proximity to Socially Vulnerability Communities",
+                      label: "Proximity to Socially Vulnerable Communities",
                     },
                     { value: "cl4", label: "Community Threat Index" },
                   ]}
@@ -1221,116 +1221,106 @@ const Sidebar = ({
                                 ? "Are more or less historic places the better?"
                                 : measure.label === "National Heritage Area"
                                 ? "Are more or less national heritage areas the better?"
-                                : measure.label ===
-                                  "Proximity to Socially Vulnerable Communities"
-                                ? "Are more or less connections to vulnerable communities the better?"
                                 : measure.label === "Community Threat Index"
                                 ? "Is higher or lower threat to community the better?"
-                                : measure.label === "Social Vulnerability Index"
-                                ? "Is higher or lower social vulnerability the better?"
                                 : ""}
                             </p>
                           </div>
-                          <ButtonGroup className="utility-inner" toggle>
-                            <ToggleButton
-                              type="radio"
-                              variant="outline-secondary"
-                              data-tip
-                              data-for={"positive-" + measure.value}
-                              name="utility"
-                              value="1"
-                              checked={measure.utility === "1"}
-                              onChange={(e) =>
-                                handleChange(
-                                  e.currentTarget.value,
-                                  e.currentTarget.name,
-                                  measure.value,
-                                  "cl"
-                                )
-                              }
-                            >
-                              {measure.label ===
-                              "National Register of Historic Places"
-                                ? "More"
-                                : measure.label === "National Heritage Area"
-                                ? "More"
-                                : measure.label ===
-                                  "Proximity to Socially Vulnerable Communities"
-                                ? "More"
-                                : measure.label === "Community Threat Index"
-                                ? "Higher"
-                                : measure.label === "Social Vulnerability Index"
-                                ? "Higher"
-                                : ""}
-                            </ToggleButton>
-                            <ReactTooltip
-                              id={"positive-" + measure.value}
-                              place="top"
-                            >
-                              {measure.label ===
-                              "National Register of Historic Places"
-                                ? "More historic places the better"
-                                : measure.label === "National Heritage Area"
-                                ? "More national heritage areas the better"
-                                : measure.label ===
-                                  "Proximity to Socially Vulnerable Communities"
-                                ? "More connection to socially vulnerable communities the better"
-                                : measure.label === "Community Threat Index"
-                                ? "Higher threat to community the better"
-                                : measure.label === "Social Vulnerability Index"
-                                ? "Higher social vulnerability the better"
-                                : ""}
-                            </ReactTooltip>
-                            <ToggleButton
-                              type="radio"
-                              variant="outline-secondary"
-                              data-tip
-                              data-for={"negative-" + measure.value}
-                              name="utility"
-                              value="-1"
-                              checked={measure.utility === "-1"}
-                              onChange={(e) =>
-                                handleChange(
-                                  e.currentTarget.value,
-                                  e.currentTarget.name,
-                                  measure.value,
-                                  "cl"
-                                )
-                              }
-                            >
-                              {measure.label ===
-                              "National Register of Historic Places"
-                                ? "Less"
-                                : measure.label === "National Heritage Area"
-                                ? "Less"
-                                : measure.label ===
-                                  "Proximity to Socially Vulnerable Communities"
-                                ? "Less"
-                                : measure.label === "Community Threat Index"
-                                ? "Lower"
-                                : measure.label === "Social Vulnerability Index"
-                                ? "Lower"
-                                : ""}
-                            </ToggleButton>
-                            <ReactTooltip
-                              id={"negative-" + measure.value}
-                              place="top"
-                            >
-                              {measure.label ===
-                              "National Register of Historic Places"
-                                ? "Less historic places the better"
-                                : measure.label === "National Heritage Area"
-                                ? "Less national heritage areas the better"
-                                : measure.label ===
-                                  "Proximity to Socially Vulnerable Communities"
-                                ? "Less connection to socially vulnerable communities the better"
-                                : measure.label === "Community Threat Index"
-                                ? "Lower threat to community the better"
-                                : measure.label === "Social Vulnerability Index"
-                                ? "Lower social vulnerability the better"
-                                : ""}
-                            </ReactTooltip>
-                          </ButtonGroup>
+                          {measure.label !==
+                            "Proximity to Socially Vulnerable Communities" && (
+                            <ButtonGroup className="utility-inner" toggle>
+                              <ToggleButton
+                                type="radio"
+                                variant="outline-secondary"
+                                data-tip
+                                data-for={"positive-" + measure.value}
+                                name="utility"
+                                value="1"
+                                checked={measure.utility === "1"}
+                                onChange={(e) =>
+                                  handleChange(
+                                    e.currentTarget.value,
+                                    e.currentTarget.name,
+                                    measure.value,
+                                    "cl"
+                                  )
+                                }
+                              >
+                                {measure.label ===
+                                "National Register of Historic Places"
+                                  ? "More"
+                                  : measure.label === "National Heritage Area"
+                                  ? "More"
+                                  : measure.label === "Community Threat Index"
+                                  ? "Higher"
+                                  : measure.label ===
+                                    "Social Vulnerability Index"
+                                  ? "Higher"
+                                  : ""}
+                              </ToggleButton>
+                              <ReactTooltip
+                                id={"positive-" + measure.value}
+                                place="top"
+                              >
+                                {measure.label ===
+                                "National Register of Historic Places"
+                                  ? "More historic places the better"
+                                  : measure.label === "National Heritage Area"
+                                  ? "More national heritage areas the better"
+                                  : measure.label === "Community Threat Index"
+                                  ? "Higher threat to community the better"
+                                  : measure.label ===
+                                    "Social Vulnerability Index"
+                                  ? "Higher social vulnerability the better"
+                                  : ""}
+                              </ReactTooltip>
+                              <ToggleButton
+                                type="radio"
+                                variant="outline-secondary"
+                                data-tip
+                                data-for={"negative-" + measure.value}
+                                name="utility"
+                                value="-1"
+                                checked={measure.utility === "-1"}
+                                onChange={(e) =>
+                                  handleChange(
+                                    e.currentTarget.value,
+                                    e.currentTarget.name,
+                                    measure.value,
+                                    "cl"
+                                  )
+                                }
+                              >
+                                {measure.label ===
+                                "National Register of Historic Places"
+                                  ? "Less"
+                                  : measure.label === "National Heritage Area"
+                                  ? "Less"
+                                  : measure.label === "Community Threat Index"
+                                  ? "Lower"
+                                  : measure.label ===
+                                    "Social Vulnerability Index"
+                                  ? "Lower"
+                                  : ""}
+                              </ToggleButton>
+                              <ReactTooltip
+                                id={"negative-" + measure.value}
+                                place="top"
+                              >
+                                {measure.label ===
+                                "National Register of Historic Places"
+                                  ? "Less historic places the better"
+                                  : measure.label === "National Heritage Area"
+                                  ? "Less national heritage areas the better"
+                                  : measure.label === "Community Threat Index"
+                                  ? "Lower threat to community the better"
+                                  : measure.label ===
+                                    "Social Vulnerability Index"
+                                  ? "Lower social vulnerability the better"
+                                  : ""}
+                              </ReactTooltip>
+                            </ButtonGroup>
+                          )}
                         </div>
                         <div>
                           <div>
@@ -2045,7 +2035,7 @@ const Sidebar = ({
                 <Table striped bordered hover size="sm">
                   <thead>
                     <tr>
-                      <th>RESTORE Goal</th>
+                      <th>RESTORE Council Goal</th>
                       <th>Weights</th>
                     </tr>
                   </thead>
@@ -2167,8 +2157,8 @@ const Sidebar = ({
           <Modal.Title>Oops, Something went wrong!</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Please make sure the sum of RESTORE Goals to be 100 and at least 1
-          data measure is selected.
+          Please make sure the sum of RESTORE Council Goals to be 100 and at
+          least 1 data measure is selected.
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
