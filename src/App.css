@@ -93,6 +93,7 @@ nav a:hover {
 }
 
 .form-group input {
+  border-radius: 5px;
   margin: 0;
 }
 
@@ -102,18 +103,50 @@ nav a:hover {
   justify-content: space-around;
 }
 
-.btn-success {
-  width: 50%;
-  margin: 10px;
+button.btn-dark.ml-1.btn {
+  font-size: 14px;
+  margin: 5px;
 }
 
-.btn-danger {
-  margin: 10px;
+.btn-success,
+.btn-secondary,
+.btn-danger,
+.btn-primary {
+  min-width: 180px;
+}
+
+button.ml-1.btn.btn-danger {
+  margin: 5px;
+  font-size: 14px;
+  min-width: initial;
+}
+
+button.sidebarControlBtn.btn.btn-secondary {
+  min-width: initial;
+  width: initial;
 }
 
 .btn-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+}
+
+.mt-4 {
+  position: fixed !important;
+  right: 30px;
+  bottom: 30px;
+  margin: 0;
+  padding: 0.5rem !important;
+}
+
+.mt-4 p {
+  font-size: 20px;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.mt-4 .h4 {
+  font-size: 20px;
 }
 
 #wq1,

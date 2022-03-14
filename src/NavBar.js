@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import { NavLink } from "react-router-dom";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 
-const NavBar = () => {
+const NavBar = ({ loggedIn, userLoggedIn }) => {
 	return (
 		<Navbar bg="dark" variant="dark" fixed="top">
 			<Navbar.Brand href="#home">
@@ -39,6 +39,25 @@ const NavBar = () => {
 						Conservation Prioritization Tool (CPT)
 					</NavDropdown.Item>
 					</NavDropdown>
+					{loggedIn ? (
+						<div className="nav-right">
+							<NavLink to="/user" className="ml-3 mt-2 login">
+								{userLoggedIn}
+							</NavLink>
+							<NavLink to="/logout" className="ml-3 mt-2 login">
+								Log Out
+							</NavLink>
+						</div>
+						) : (
+						<div className="nav-right">
+							<NavLink to="/login" className="ml-3 mt-2 login">
+								Log In
+							</NavLink>
+							<NavLink to="/register" className="ml-3 mt-2 register">
+								Register
+							</NavLink>
+						</div>
+					)}
 				</Nav>
 			</Navbar.Collapse>
 		</Navbar>
