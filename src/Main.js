@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { RiScreenshot2Fill } from "react-icons/ri";
+import { RiFileDownloadLine, RiSaveLine, RiScreenshot2Fill } from "react-icons/ri";
 import ControlPanel from "./ControlPanel";
 import Sidebar from "./Sidebar";
 import Map from "./Map";
 import "./main.css";
 
-const Main = () => {
+const Main = ({ userLoggedIn }) => {
   const [activeSidebar, setActiveSidebar] = useState(false);
   const [data, setData] = useState(null);
   const [hoverInfo, setHoverInfo] = useState(null);
@@ -97,6 +97,25 @@ const Main = () => {
           <Modal.Body>
             <div className="d-flex flex-column justify-content-center">
               <img src={imageURL} alt={"Current Map View"} />
+              <br/>
+              <div 
+                className={
+                  userLoggedIn?
+                  "d-flex justify-content-between":
+                  "d-flex justify-content-center"
+                }
+              >
+                <Button variant="secondary">
+                  <RiFileDownloadLine /> &nbsp;
+                  Download Map
+                </Button>
+                {userLoggedIn && (
+                  <Button variant="secondary">
+                    <RiSaveLine /> &nbsp;
+                    Save to: {userLoggedIn}
+                  </Button>
+                )}
+              </div>
             </div>
           </Modal.Body>
         </Modal>

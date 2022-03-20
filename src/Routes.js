@@ -15,7 +15,7 @@ const Routes = ({ setLoggedIn, userLoggedIn, setUserLoggedIn }) =>{
         <>
         <Switch>
             <Route exact path="/">
-                <Main/>
+                <Main userLoggedIn={userLoggedIn}/>
             </Route>
             <Route exact path="/register">
                 <Register
