@@ -1,16 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
 import MapGL, { Source, Layer } from "react-map-gl";
 import { defaultLayer, dataLayer, dataLayerHightLight } from "./map-style";
-import ControlPanel from "./ControlPanel";
 import Legend from "./Legend";
-import mapboxgl from "mapbox-gl";
 
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoiY2h1Y2swNTIwIiwiYSI6ImNrMDk2NDFhNTA0bW0zbHVuZTk3dHQ1cGUifQ.dkjP73KdE6JMTiLcUoHvUA";
 
-const Map = ({ weightsDone, data, setHoverInfo }) => {
-  const mapContainer = useRef(null);
-  const map = useRef(null);
+const Map = ({ weightsDone, data, setHoverInfo, setImageURL, mapRef }) => {
   const [lng, setLng] = useState(-88.4);
   const [lat, setLat] = useState(27.8);
   const [zoom, setZoom] = useState(5.5);
@@ -24,6 +20,10 @@ const Map = ({ weightsDone, data, setHoverInfo }) => {
   });
 
   const [filter, setFilter] = useState(["in", "OBJECTID", ""]);
+
+  const onLoad = (e) => {
+    setImageURL(e.target.getCanvas().toDataURL());
+  };
 
   const onHover = (e) => {
     // console.log(viewport);
@@ -98,6 +98,7 @@ const Map = ({ weightsDone, data, setHoverInfo }) => {
   return (
     <MapGL
       {...viewport}
+      ref={mapRef}
       style={{ position: "fixed" }}
       width="100vw"
       height="100vh"
@@ -107,6 +108,8 @@ const Map = ({ weightsDone, data, setHoverInfo }) => {
       onViewportChange={setViewport}
       onViewStateChange={onViewStateChange}
       mapboxApiAccessToken={MAPBOX_TOKEN}
+      preserveDrawingBuffer={true}
+      onLoad={onLoad}
       onClick={onHover}
       // onHover={onHover}
     >

@@ -322,7 +322,7 @@ const Sidebar = ({
                           delayHide={500}
                           delayUpdate={500}
                           id={measure.value}
-                          clickable="true"
+                          clickable={true}
                           type="dark"
                         >
                           <span>
@@ -649,7 +649,7 @@ const Sidebar = ({
                           delayHide={500}
                           delayUpdate={500}
                           id={measure.value}
-                          clickable="true"
+                          clickable={true}
                           type="dark"
                         >
                           <span>
@@ -1023,7 +1023,7 @@ const Sidebar = ({
                           delayHide={500}
                           delayUpdate={500}
                           id={measure.value}
-                          clickable="true"
+                          clickable={true}
                           type="dark"
                         >
                           <span>
@@ -1362,7 +1362,7 @@ const Sidebar = ({
                           delayHide={500}
                           delayUpdate={500}
                           id={measure.value}
-                          clickable="true"
+                          clickable={true}
                           type="dark"
                         >
                           <span>
@@ -1660,7 +1660,7 @@ const Sidebar = ({
                           delayHide={500}
                           delayUpdate={500}
                           id={measure.value}
-                          clickable="true"
+                          clickable={true}
                           type="dark"
                         >
                           <span>
@@ -1971,7 +1971,7 @@ const Sidebar = ({
                               delayHide={500}
                               delayUpdate={500}
                               id={measure.value}
-                              clickable="true"
+                              clickable={true}
                               type="dark"
                             >
                               <span>
@@ -2048,7 +2048,7 @@ const Sidebar = ({
                               delayHide={500}
                               delayUpdate={500}
                               id={measure.value}
-                              clickable="true"
+                              clickable={true}
                               type="dark"
                             >
                               <span>
@@ -2126,7 +2126,7 @@ const Sidebar = ({
                               delayHide={500}
                               delayUpdate={500}
                               id={measure.value}
-                              clickable="true"
+                              clickable={true}
                               type="dark"
                             >
                               <span>
@@ -2204,7 +2204,7 @@ const Sidebar = ({
                               delayHide={500}
                               delayUpdate={500}
                               id={measure.value}
-                              clickable="true"
+                              clickable={true}
                               type="dark"
                             >
                               <span>
@@ -2265,7 +2265,7 @@ const Sidebar = ({
                               delayHide={500}
                               delayUpdate={500}
                               id={measure.value}
-                              clickable="true"
+                              clickable={true}
                               type="dark"
                             >
                               <span>
