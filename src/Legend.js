@@ -2,10 +2,10 @@ import React from 'react';
 
 const Legend = () => {
 	return (
-		<div class="legend">
-			<div class="legend-title">Legend</div>
-			<div class="legend-scale">
-				<ul class="legend-labels">
+		<div className="legend">
+			<div className="legend-title">Overall Score</div>
+			<div className="legend-scale">
+				<ul className="legend-labels">
 					<li>
 						<span style={{background:'#ffeda0'}} />{'< 0.1'}
 					</li>
@@ -25,7 +25,7 @@ const Legend = () => {
 						<span style={{background:"#fc4e2a"}} />0.6
 					</li>
 					<li>
-						<span style={{background:"hsl(348, 100%, 37%)"}} />0.7
+						<span style={{background:"#bb0026"}} />0.7
 					</li>
 					<li>
 						<span style={{background:"#bd0026"}} />{'> 0.8'}
