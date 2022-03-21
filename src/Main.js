@@ -13,6 +13,7 @@ const Main = ({ userLoggedIn }) => {
   const [weightsDone, setWeightsDone] = useState(false);
   const [show, setShow] = useState(false);
   const [imageURL, setImageURL] = useState(null);
+  const [resizedImageURL, setResizedImageURL] = useState(null);
   const mapRef = useRef();
   
   const handleClose = () => setShow(false);
@@ -38,8 +39,29 @@ const Main = ({ userLoggedIn }) => {
   const getImage = async () => {
     var originalImage = mapRef.current.getMap().getCanvas().toDataURL();
     var resizedImage = await resizeImageURL(originalImage, 750, 500);
-    setImageURL(resizedImage);
+    setImageURL(originalImage);
+    setResizedImageURL(resizedImage);
     handleShow();
+  };
+
+  // The length of image URL exceeds the limit of broswer
+  // Need to use a blob object to recreate the URL instead
+  function imageURLToBlob(url) {
+    var binStr = atob(url.split(',')[1]),
+      len = binStr.length,
+      arr = new Uint8Array(len);
+    for (var i = 0; i < len; i++) {
+      arr[i] = binStr.charCodeAt(i);
+    };
+    return new Blob([arr]);
+  };
+
+  const DownloadMap = () => {
+    var a = document.createElement("a");
+    var blob = imageURLToBlob(imageURL);
+    a.href = URL.createObjectURL(blob);;
+    a.download = "Map.png";
+    a.click();
   };
 
   return (
@@ -96,7 +118,7 @@ const Main = ({ userLoggedIn }) => {
           </Modal.Header>
           <Modal.Body>
             <div className="d-flex flex-column justify-content-center">
-              <img src={imageURL} alt={"Current Map View"} />
+              <img src={resizedImageURL} alt={"Current Map View"} />
               <br/>
               <div 
                 className={
@@ -105,7 +127,7 @@ const Main = ({ userLoggedIn }) => {
                   "d-flex justify-content-center"
                 }
               >
-                <Button variant="secondary">
+                <Button variant="secondary" onClick={DownloadMap}>
                   <RiFileDownloadLine /> &nbsp;
                   Download Map
                 </Button>
