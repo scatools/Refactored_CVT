@@ -123,7 +123,7 @@ const Map = ({ weightsDone, data, zoom, setZoom, opacity, setHoverInfo, setImage
             />
             <Layer {...dataLayerHightLight} filter={filter} />
           </Source>
-          <Legend></Legend>
+          <Legend opacity={opacity}></Legend>
         </>
       )}
     </MapGL>
