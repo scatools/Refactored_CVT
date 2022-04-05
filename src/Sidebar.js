@@ -329,10 +329,10 @@ const Sidebar = ({
                             {measure.label ===
                             "Connectivity to Existing Protected Area" ? (
                               <>
-                                Connectivity to existing protected area
-                                indicates if the proposed conservation area is
-                                close to an area classified as protected by
-                                PAD-US 2.0 data.
+                                Connectivity to existing protected area indicates
+                                if the proposed conservation area is within 1 km
+                                of an area classified as protected by PAD-US 2.0
+                                data.
                                 <br />
                                 <a
                                   href="https://scatoolsuite.gitbook.io/sca-tool-suite/support/habitat#connectivity-to-existing-protected-area"
@@ -1978,10 +1978,10 @@ const Sidebar = ({
                                 {measure.label ===
                                 "Connectivity to Existing Protected Area" ? (
                                   <>
-                                    Connectivity to existing protected area
-                                    indicates if the proposed conservation area
-                                    is close to an area classified as protected
-                                    by PAD-US 2.0 data.
+                                    Connectivity to existing protected area indicates
+                                    if the proposed conservation area is within 1 km
+                                    of an area classified as protected by PAD-US 2.0
+                                    data.
                                     <br />
                                     <a
                                       href="https://scatoolsuite.gitbook.io/sca-tool-suite/support/habitat#composition-of-priority-natural-lands"
@@ -2399,19 +2399,19 @@ const Sidebar = ({
                         ["+", 0, ...intermediate],
                         "#ffeda0",
                         0.1,
-                        "#ffeda0",
+                        "#f8d685",
                         0.2,
-                        "#fed976",
+                        "#f1bf6d",
                         0.3,
-                        "#feb24c",
+                        "#eaa757",
                         0.4,
-                        "#fd8d3c",
+                        "#e28e45",
                         0.5,
-                        "#fc4e2a",
+                        "#db7537",
                         0.6,
-                        "#e31a1c",
+                        "#d2592e",
                         0.7,
-                        "hsl(348, 100%, 37%)",
+                        "#c83a28",
                         0.8,
                         "#bd0026",
                       ];
