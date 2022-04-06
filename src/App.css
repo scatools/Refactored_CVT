@@ -15,6 +15,7 @@
   top: 56px;
   width: 500px;
   right: -500px;
+  z-index: 10;
   transition: all 0.3s;
 }
 
@@ -23,11 +24,11 @@
 }
 
 .legend {
-  position: absolute;
-  top: 75vh;
+  position: fixed;
+  bottom: 40px;
   left: 1vw;
-  background-color: rgb(247, 245, 245);
-  border-radius: 30px;
+  background-color: white;
+  border-radius: 20px;
   padding: 10px;
 }
 

@@ -6,10 +6,9 @@ import Legend from "./Legend";
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoiY2h1Y2swNTIwIiwiYSI6ImNrMDk2NDFhNTA0bW0zbHVuZTk3dHQ1cGUifQ.dkjP73KdE6JMTiLcUoHvUA";
 
-const Map = ({ weightsDone, data, setHoverInfo, setImageURL, mapRef }) => {
+const Map = ({ weightsDone, data, zoom, setZoom, opacity, setHoverInfo, setImageURL, setInstruction, mapRef }) => {
   const [lng, setLng] = useState(-88.4);
   const [lat, setLat] = useState(27.8);
-  const [zoom, setZoom] = useState(5.5);
 
   const [viewport, setViewport] = useState({
     latitude: lat,
@@ -25,8 +24,7 @@ const Map = ({ weightsDone, data, setHoverInfo, setImageURL, mapRef }) => {
     setImageURL(e.target.getCanvas().toDataURL());
   };
 
-  const onHover = (e) => {
-    // console.log(viewport);
+  const onClick = (e) => {
     if (viewport.zoom >= 10) {
       let objectId = "";
       let hoveredInfo = null;
@@ -39,8 +37,6 @@ const Map = ({ weightsDone, data, setHoverInfo, setImageURL, mapRef }) => {
           };
 
           for (var i in hoveredInfo.hexagon) {
-            // console.log(i);
-            // console.log(typeof i);
             if (
               i.includes("cl") ||
               i.includes("eco") ||
@@ -48,9 +44,6 @@ const Map = ({ weightsDone, data, setHoverInfo, setImageURL, mapRef }) => {
               i.includes("lcmr") ||
               i.includes("wq")
             ) {
-              // i is string type so this won't work
-              //hoveredInfo.hexagon.i = hoveredInfo.hexagon.i.toFixed(2);
-              // instead this works
               hoveredInfo.hexagon[i] = hoveredInfo.hexagon[i].toFixed(2);
             }
           }
@@ -60,40 +53,28 @@ const Map = ({ weightsDone, data, setHoverInfo, setImageURL, mapRef }) => {
       setHoverInfo(hoveredInfo);
       setFilter(["in", "OBJECTID", objectId ? objectId : ""]);
 
-      // These won't work
-      // let popupWindow = document.getElementById("popupWindow");
-      // let popupWindow = document.getElementsByTagName("ControlPanel")[0];
       let popupWindow = document.getElementsByClassName("control-panel")[0];
       if (popupWindow) {
         popupWindow.style.display = "initial";
-      }
-      let windowContent = document.getElementById("floatingWindow");
-      windowContent.style.display = "none";
-    }
+      };
+    };
   };
 
   const onViewStateChange = (e) => {
-    // console.log(e);
+    setZoom(e.viewState.zoom.toFixed(1));
     let popupWindow = document.getElementsByClassName("control-panel")[0];
     if (popupWindow) {
       popupWindow.style.display = "none";
-    }
-    let windowContent = document.getElementById("floatingWindow");
-    windowContent.style.display = "block";
-    if (e.viewState.zoom >= 10) {
-      windowContent.innerHTML =
-        "<p><em>Click to explore the details of a single hexagonal area.</em></p>" +
-        "<p>Current zoom level : " +
-        e.viewState.zoom.toFixed(1) +
-        "</p>";
-    } else {
-      windowContent.innerHTML =
-        "<p><em>Please zoom in to level 10 to explore the details of a single hexagonal area.</em></p>" +
-        "<p>Current zoom level : " +
-        e.viewState.zoom.toFixed(1) +
-        "</p>";
-    }
+    };
   };
+
+  useEffect(() => {
+    if (zoom >= 10) {
+      setInstruction("Click to explore the details of a single hexagonal area.");
+    } else {
+      setInstruction("Please zoom in to level 10 to explore the details of a single hexagonal area.");
+    };
+  }, [zoom]);
 
   return (
     <MapGL
@@ -110,8 +91,7 @@ const Map = ({ weightsDone, data, setHoverInfo, setImageURL, mapRef }) => {
       mapboxApiAccessToken={MAPBOX_TOKEN}
       preserveDrawingBuffer={true}
       onLoad={onLoad}
-      onClick={onHover}
-      // onHover={onHover}
+      onClick={onClick}
     >
       <Source
         type="vector"
@@ -121,7 +101,6 @@ const Map = ({ weightsDone, data, setHoverInfo, setImageURL, mapRef }) => {
       >
         <Layer {...defaultLayer} />
       </Source>
-
       {weightsDone && (
         <>
           <Source
@@ -138,14 +117,13 @@ const Map = ({ weightsDone, data, setHoverInfo, setImageURL, mapRef }) => {
                   "case",
                   ["boolean", ["feature-state", "hover"], false],
                   1,
-                  0.5,
+                  parseInt(opacity)/100,
                 ],
               }}
             />
             <Layer {...dataLayerHightLight} filter={filter} />
           </Source>
-
-          <Legend></Legend>
+          <Legend opacity={opacity}></Legend>
         </>
       )}
     </MapGL>

@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
+import RangeSlider from "react-bootstrap-range-slider";
 import { RiFileDownloadLine, RiSaveLine, RiScreenshot2Fill } from "react-icons/ri";
 import ControlPanel from "./ControlPanel";
 import Sidebar from "./Sidebar";
@@ -9,11 +10,16 @@ import "./main.css";
 const Main = ({ userLoggedIn }) => {
   const [activeSidebar, setActiveSidebar] = useState(false);
   const [data, setData] = useState(null);
+  const [zoom, setZoom] = useState(5.5);
+  const [opacity, setOpacity] = useState(50);
   const [hoverInfo, setHoverInfo] = useState(null);
   const [weightsDone, setWeightsDone] = useState(false);
   const [show, setShow] = useState(false);
   const [imageURL, setImageURL] = useState(null);
   const [resizedImageURL, setResizedImageURL] = useState(null);
+  const [instruction, setInstruction] = useState(
+    "Please zoom in to level 10 to explore the details of a single hexagonal area."
+  );
   const mapRef = useRef();
   
   const handleClose = () => setShow(false);
@@ -84,18 +90,26 @@ const Main = ({ userLoggedIn }) => {
         </Button>
         <div id="floatingWindow" className="window">
           <p>
-            <em>
-              Please zoom in to level 10 to explore the details of a single
-              hexagonal area.
-            </em>
+            <em>{instruction}</em>
           </p>
-          <p>Current zoom level : </p>
+          <p>Current Zoom Level : {zoom}</p>
+          <label>Layer Opacity (%) :</label>
+          <RangeSlider
+            step={1}
+            value={opacity}
+            onChange={(e) => setOpacity(e.target.value)}
+            variant="secondary"
+          />
         </div>
         <Map
           weightsDone={weightsDone}
           data={data}
+          zoom={zoom}
+          setZoom={setZoom}
+          opacity={opacity}
           setHoverInfo={setHoverInfo}
           setImageURL={setImageURL}
+          setInstruction={setInstruction}
           mapRef={mapRef}
         />
         <ControlPanel
@@ -103,7 +117,7 @@ const Main = ({ userLoggedIn }) => {
           hoverInfo={hoverInfo ? hoverInfo : { hexagon: {} }}
         ></ControlPanel>
         <Button
-          style={{ position: "fixed", top: "200px", right: "20px", width: "300px", zIndex: 1 }}
+          id="snapshotButton"
           variant="secondary"
           onClick={getImage}
         >
