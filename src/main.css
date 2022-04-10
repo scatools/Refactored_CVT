@@ -115,6 +115,36 @@
     BUTTON STYLE
 ----------------------------------------------------- */
 
+.multi-switch-container {
+  height: 42px !important;
+}
+
+.multi-switch-content:hover {
+  background: lightsteelblue;
+  border-radius: 30px;
+  top: 0;
+}
+
+.basemapButton {
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  z-index: 2;
+  min-width: 30px;
+  min-height: 42px;
+}
+
+.basemapSwitch {
+  position: fixed;
+  bottom: 25px;
+  right: 20px;
+  z-index: 1;
+  padding: 0px;
+  margin: 0px;
+  text-align: end;
+  transition: all ease 0.3s;
+}
+
 #snapshotButton {
   position: fixed;
   top: 300px;
