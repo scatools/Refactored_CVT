@@ -1,5 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import MapGL, { Source, Layer } from "react-map-gl";
+import MultiSwitch from "react-multi-switch-toggle";
+import { Button } from "react-bootstrap";
+import { FiMap } from "react-icons/fi";
 import { defaultLayer, dataLayer, dataLayerHightLight } from "./map-style";
 import Legend from "./Legend";
 
@@ -9,6 +12,8 @@ const MAPBOX_TOKEN =
 const Map = ({ weightsDone, data, zoom, setZoom, opacity, setHoverInfo, setImageURL, setInstruction, mapRef }) => {
   const [lng, setLng] = useState(-88.4);
   const [lat, setLat] = useState(27.8);
+  const [selectBasemap, setSelectBasemap] = useState(false);
+  const [basemapStyle, setBasemapStyle] = useState("light-v10");
 
   const [viewport, setViewport] = useState({
     latitude: lat,
@@ -22,6 +27,18 @@ const Map = ({ weightsDone, data, zoom, setZoom, opacity, setHoverInfo, setImage
 
   const onLoad = (e) => {
     setImageURL(e.target.getCanvas().toDataURL());
+  };
+
+  const onToggle = (value) => {
+    if (value === 0) {
+      setBasemapStyle("light-v10");
+    } else if (value === 1) {
+      setBasemapStyle("dark-v10");
+    } else if (value === 2) {
+      setBasemapStyle("satellite-v9");
+    } else if (value === 3) {
+      setBasemapStyle("outdoors-v11");
+    }
   };
 
   const onClick = (e) => {
@@ -77,56 +94,82 @@ const Map = ({ weightsDone, data, zoom, setZoom, opacity, setHoverInfo, setImage
   }, [zoom]);
 
   return (
-    <MapGL
-      {...viewport}
-      ref={mapRef}
-      style={{ position: "fixed" }}
-      width="100vw"
-      height="100vh"
-      showZoom={true}
-      mapStyle="mapbox://styles/mapbox/dark-v9"
-      // onViewportChange={(nextViewport) => setViewport(nextViewport)}
-      onViewportChange={setViewport}
-      onViewStateChange={onViewStateChange}
-      mapboxApiAccessToken={MAPBOX_TOKEN}
-      preserveDrawingBuffer={true}
-      onLoad={onLoad}
-      onClick={onClick}
-    >
-      <Source
-        type="vector"
-        url="mapbox://chuck0520.bardd4y7"
-        maxzoom={22}
-        minzoom={0}
+    <>
+      <Button
+        className="basemapButton"
+        variant="secondary"
+        onClick={() => setSelectBasemap(!selectBasemap)}
       >
-        <Layer {...defaultLayer} />
-      </Source>
-      {weightsDone && (
-        <>
-          <Source
-            type="vector"
-            url="mapbox://chuck0520.2jhtgjk6"
-            maxzoom={22}
-            minzoom={0}
-          >
-            <Layer
-              {...dataLayer}
-              paint={{
-                "fill-color": data,
-                "fill-opacity": [
-                  "case",
-                  ["boolean", ["feature-state", "hover"], false],
-                  1,
-                  parseInt(opacity)/100,
-                ],
-              }}
-            />
-            <Layer {...dataLayerHightLight} filter={filter} />
-          </Source>
-          <Legend opacity={opacity}></Legend>
-        </>
+        <FiMap />
+      </Button>
+      {selectBasemap && (
+        <div className="basemapSwitch">
+          <MultiSwitch
+            texts={["Light", "Dark", "Satellite", "Terrain", ""]}
+            selectedSwitch={0}
+            bgColor={"gray"}
+            onToggleCallback={onToggle}
+            height={"38px"}
+            fontSize={"15px"}
+            fontColor={"white"}
+            selectedFontColor={"#6e599f"}
+            selectedSwitchColor={"white"}
+            borderWidth={0}
+            eachSwitchWidth={80}
+          />
+        </div>
       )}
-    </MapGL>
+      <MapGL
+        {...viewport}
+        ref={mapRef}
+        style={{ position: "fixed" }}
+        width="100vw"
+        height="100vh"
+        showZoom={true}
+        mapStyle={"mapbox://styles/mapbox/" + basemapStyle}
+        // onViewportChange={(nextViewport) => setViewport(nextViewport)}
+        onViewportChange={setViewport}
+        onViewStateChange={onViewStateChange}
+        mapboxApiAccessToken={MAPBOX_TOKEN}
+        preserveDrawingBuffer={true}
+        onLoad={onLoad}
+        onClick={onClick}
+      >
+        <Source
+          type="vector"
+          url="mapbox://chuck0520.bardd4y7"
+          maxzoom={22}
+          minzoom={0}
+        >
+          <Layer {...defaultLayer} />
+        </Source>
+        {weightsDone && (
+          <>
+            <Source
+              type="vector"
+              url="mapbox://chuck0520.2jhtgjk6"
+              maxzoom={22}
+              minzoom={0}
+            >
+              <Layer
+                {...dataLayer}
+                paint={{
+                  "fill-color": data,
+                  "fill-opacity": [
+                    "case",
+                    ["boolean", ["feature-state", "hover"], false],
+                    1,
+                    parseInt(opacity)/100,
+                  ],
+                }}
+              />
+              <Layer {...dataLayerHightLight} filter={filter} />
+            </Source>
+            <Legend opacity={opacity}></Legend>
+          </>
+        )}
+      </MapGL>
+    </>
   );
 };
 

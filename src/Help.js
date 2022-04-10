@@ -3,8 +3,9 @@ import { Container, Jumbotron, Button } from "react-bootstrap";
 import emailjs from '@emailjs/browser';
 import * as Survey from "survey-react";
 import "survey-react/modern.css";
-import { SiGitbook, SiGithub } from "react-icons/si"
 import { MdVideoLibrary } from "react-icons/md"
+import { AiFillDatabase } from "react-icons/ai"
+import { SiGitbook, SiGithub } from "react-icons/si"
 
 const Help = () => {
   Survey.StylesManager.applyTheme("modern");
@@ -89,27 +90,33 @@ const Help = () => {
             </div>
           </div>
           <hr/>
-          <h2>Documentation</h2>
+          <h2>Resources</h2>
           <p className="lead">
-            Please visit our documentation page to get the glossary and know more about the methodology
+            Please utilize the following resources to know more about the Conservation Visualization Tool
           </p>
           <div className="d-flex justify-content-between">
             <p className="text-muted">
-              <b>GitBook Glossary </b>
+              <b>Video Tutorial </b>
+              <a href="https://www.quest.fwrc.msstate.edu/sca/help-docs.php" target="_blank">
+                <MdVideoLibrary size={30}/>
+              </a>
+            </p>
+            <p className="text-muted">
+              <b>Data Overview </b>
+              <a href="https://studio.mapbox.com/tilesets/chuck0520.2jhtgjk6" target="_blank">
+                <AiFillDatabase size={30}/>
+              </a>
+            </p>
+            <p className="text-muted">
+              <b>GitBook Documentation </b>
               <a href="https://scatoolsuite.gitbook.io/sca-tool-suite/" target="_blank">
                 <SiGitbook size={30}/>
               </a>
             </p>
             <p className="text-muted">
               <b>GitHub Repository </b>
-              <a href="https://github.com/scatools/Refactored_CPT" target="_blank">
+              <a href="https://github.com/scatools/CVT_PC" target="_blank">
                 <SiGithub size={30}/>
-              </a>
-            </p>
-            <p className="text-muted">
-              <b>Video Tutorial </b>
-              <a href="https://www.quest.fwrc.msstate.edu/sca/help-docs.php" target="_blank">
-                <MdVideoLibrary size={30}/>
               </a>
             </p>
           </div>
