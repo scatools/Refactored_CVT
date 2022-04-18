@@ -6,10 +6,11 @@ color: #fff;
 ----------------------------------------------------- */
 
 #sidebar {
+  padding: 10px;
   width: 500px;
   position: absolute;
   top: 55.5px;
-  left: -600px;
+  left: -490px;
   height: auto;
   min-height: 94.3vh;
   z-index: 5;

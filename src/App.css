@@ -11,10 +11,13 @@
 }
 
 .control-panel {
-  position: absolute;
-  top: 56px;
+  position: fixed;
+  height: 100vh;
+  overflow: scroll;
+  top: 36px;
   width: 500px;
   right: -500px;
+  padding: 20px 0;
   transition: all 0.3s;
 }
 

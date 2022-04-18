@@ -23,6 +23,12 @@ import {
 } from "./action";
 import { GoInfo } from "react-icons/go";
 import ReactTooltip from "react-tooltip";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+
+const arrowIcon = (
+  <FontAwesomeIcon icon={faArrowLeft} color="white" size="lg" />
+);
 
 const RESTOREGoal = [
   "Habitat",
@@ -61,13 +67,19 @@ const Sidebar = ({
           setActiveSidebar(false);
         }}
       >
-        X
+        {arrowIcon}
       </div>
 
       <div className="ControlWrapper">
-        <p>Layer Control</p>
-        <Accordion defaultActiveKey="0">
-          <Card>
+        <h6>
+          Welcome to Conservation Visualization Tool!
+          <br />
+          <br />
+          This tool provides region-wide visualization based on your chosen
+          RESTORE council goal weights and selected data measure priorities.
+        </h6>
+        <Accordion defaultActiveKey="1">
+          {/* <Card>
             <Accordion.Toggle as={Card.Header} eventKey="0">
               Geographic Scale:
             </Accordion.Toggle>
@@ -121,7 +133,7 @@ const Sidebar = ({
                 </Accordion.Toggle>
               </Card.Body>
             </Accordion.Collapse>
-          </Card>
+          </Card> */}
 
           <Card className="my-2">
             <Accordion.Toggle as={Card.Header} eventKey="1">

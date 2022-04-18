@@ -4,9 +4,15 @@ import Map from "./Map";
 import "./main.css";
 import Sidebar from "./Sidebar";
 import ControlPanel from "./ControlPanel";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+
+const arrowIcon = (
+  <FontAwesomeIcon icon={faArrowRight} color="white" size="lg" />
+);
 
 const Main = () => {
-  const [activeSidebar, setActiveSidebar] = useState(false);
+  const [activeSidebar, setActiveSidebar] = useState(true);
   const [data, setData] = useState(null);
   const [hoverInfo, setHoverInfo] = useState(null);
   const [weightsDone, setWeightsDone] = useState(false);
@@ -21,13 +27,13 @@ const Main = () => {
       />
       <div style={{ height: "100%", position: "relative" }} className="content">
         <Button
-          style={{ position: "fixed", top: "80px", left: "50px", zIndex: 1 }}
+          style={{ position: "fixed", top: "65px", left: "3px", zIndex: 1 }}
           variant="secondary"
           onClick={() => {
             setActiveSidebar(true);
           }}
         >
-          Start
+          {arrowIcon}
         </Button>
         <div id="floatingWindow" className="window">
           <p>
