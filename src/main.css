@@ -1,6 +1,3 @@
-/* background: #292a2b;
-color: #fff;
-*/
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
@@ -107,13 +104,52 @@ color: #fff;
   background-color: rgb(36, 36, 36);
   border: 2px white solid;
   width: 300px;
-  height: 100px;
+  height: 200px;
   padding: 5px;
   border-radius: 4px;
   box-shadow: 6px 6px 5px gray;
   transition: box-shadow 1s;
   z-index: 4;
-  /* &:hover {
-      box-shadow: 0px 0px 0px gray;
-    } */
+}
+
+/* ---------------------------------------------------
+    BUTTON STYLE
+----------------------------------------------------- */
+
+.multi-switch-container {
+  height: 42px !important;
+}
+
+.multi-switch-content:hover {
+  background: lightsteelblue;
+  border-radius: 30px;
+  top: 0;
+}
+
+.basemapButton {
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  z-index: 2;
+  min-width: 30px;
+  min-height: 42px;
+}
+
+.basemapSwitch {
+  position: fixed;
+  bottom: 25px;
+  right: 20px;
+  z-index: 1;
+  padding: 0px;
+  margin: 0px;
+  text-align: end;
+  transition: all ease 0.3s;
+}
+
+#snapshotButton {
+  position: fixed;
+  top: 300px;
+  right: 20px;
+  width: 300px;
+  z-index: 4;
 }

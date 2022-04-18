@@ -1,34 +1,37 @@
 import React from 'react';
 
-const Legend = () => {
+const Legend = ({ opacity }) => {
 	return (
-		<div class="legend">
-			<div class="legend-title">Legend</div>
-			<div class="legend-scale">
-				<ul class="legend-labels">
+		<div className="legend">
+			<div className="legend-title">Overall Score</div>
+			<div className="legend-scale">
+				<ul className="legend-labels">
 					<li>
-						<span style={{background:'#ffeda0'}} />{'< 0.1'}
+						<span style={{background:'#ffeda0', opacity: parseInt(opacity)/100}} />{'< 0.1'}
 					</li>
 					<li>
-						<span style={{background:"#ffeda0"}} />0.2
+						<span style={{background:"#f8d685", opacity: parseInt(opacity)/100}} />0.1 ~ 0.2
 					</li>
 					<li>
-						<span style={{background:"#fed976"}} />0.3
+						<span style={{background:"#f1bf6d", opacity: parseInt(opacity)/100}} />0.2 ~ 0.3
 					</li>
 					<li>
-						<span style={{background:"#feb24c"}} />0.4
+						<span style={{background:"#eaa757", opacity: parseInt(opacity)/100}} />0.3 ~ 0.4
 					</li>
 					<li>
-						<span style={{background:"#fd8d3c"}} />0.5
+						<span style={{background:"#e28e45", opacity: parseInt(opacity)/100}} />0.4 ~ 0.5
 					</li>
                     <li>
-						<span style={{background:"#fc4e2a"}} />0.6
+						<span style={{background:"#db7537", opacity: parseInt(opacity)/100}} />0.5 ~ 0.6
 					</li>
 					<li>
-						<span style={{background:"hsl(348, 100%, 37%)"}} />0.7
+						<span style={{background:"#d2592e", opacity: parseInt(opacity)/100}} />0.6 ~ 0.7
 					</li>
 					<li>
-						<span style={{background:"#bd0026"}} />{'> 0.8'}
+						<span style={{background:"#c83a28", opacity: parseInt(opacity)/100}} />0.7 ~ 0.8
+					</li>
+					<li>
+						<span style={{background:"#bd0026", opacity: parseInt(opacity)/100}} />{'> 0.8'}
 					</li>
 				</ul>
 			</div>

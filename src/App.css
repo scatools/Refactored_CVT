@@ -17,7 +17,11 @@
   top: 36px;
   width: 500px;
   right: -500px;
+<<<<<<< HEAD
   padding: 20px 0;
+=======
+  z-index: 10;
+>>>>>>> 49e248e50506ee0f293eafea14cefe97279b7fc2
   transition: all 0.3s;
 }
 
@@ -26,11 +30,11 @@
 }
 
 .legend {
-  position: absolute;
-  top: 75vh;
+  position: fixed;
+  bottom: 40px;
   left: 1vw;
-  background-color: rgb(247, 245, 245);
-  border-radius: 30px;
+  background-color: white;
+  border-radius: 20px;
   padding: 10px;
 }
 
@@ -96,6 +100,7 @@ nav a:hover {
 }
 
 .form-group input {
+  border-radius: 5px;
   margin: 0;
 }
 
@@ -105,18 +110,50 @@ nav a:hover {
   justify-content: space-around;
 }
 
-.btn-success {
-  width: 50%;
-  margin: 10px;
+button.btn-dark.ml-1.btn {
+  font-size: 14px;
+  margin: 5px;
 }
 
-.btn-danger {
-  margin: 10px;
+.btn-success,
+.btn-secondary,
+.btn-danger,
+.btn-primary {
+  min-width: 180px;
+}
+
+button.ml-1.btn.btn-danger {
+  margin: 5px;
+  font-size: 14px;
+  min-width: initial;
+}
+
+button.sidebarControlBtn.btn.btn-secondary {
+  min-width: initial;
+  width: initial;
 }
 
 .btn-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+}
+
+.mt-4 {
+  position: fixed !important;
+  right: 30px;
+  bottom: 30px;
+  margin: 0;
+  padding: 0.5rem !important;
+}
+
+.mt-4 p {
+  font-size: 20px;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.mt-4 .h4 {
+  font-size: 20px;
 }
 
 #wq1,
