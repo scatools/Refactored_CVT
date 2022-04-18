@@ -128,8 +128,8 @@
 
 .basemapButton {
   position: fixed;
-  bottom: 30px;
-  right: 20px;
+  top: 300px;
+  right: 70px;
   z-index: 2;
   min-width: 30px;
   min-height: 42px;
@@ -148,8 +148,9 @@
 
 #snapshotButton {
   position: fixed;
+  min-width: 30px;
+  min-height: 42px;
   top: 300px;
   right: 20px;
-  width: 300px;
   z-index: 4;
 }

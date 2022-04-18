@@ -9,7 +9,18 @@ import Legend from "./Legend";
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoiY2h1Y2swNTIwIiwiYSI6ImNrMDk2NDFhNTA0bW0zbHVuZTk3dHQ1cGUifQ.dkjP73KdE6JMTiLcUoHvUA";
 
-const Map = ({ weightsDone, data, zoom, setZoom, opacity, setHoverInfo, setImageURL, setInstruction, mapRef }) => {
+const Map = ({
+  weightsDone,
+  data,
+  zoom,
+  setZoom,
+  opacity,
+  setHoverInfo,
+  setImageURL,
+  setInstruction,
+  mapRef,
+  activeSidebar,
+}) => {
   const [lng, setLng] = useState(-88.4);
   const [lat, setLat] = useState(27.8);
   const [selectBasemap, setSelectBasemap] = useState(false);
@@ -73,8 +84,8 @@ const Map = ({ weightsDone, data, zoom, setZoom, opacity, setHoverInfo, setImage
       let popupWindow = document.getElementsByClassName("control-panel")[0];
       if (popupWindow) {
         popupWindow.style.display = "initial";
-      };
-    };
+      }
+    }
   };
 
   const onViewStateChange = (e) => {
@@ -82,26 +93,32 @@ const Map = ({ weightsDone, data, zoom, setZoom, opacity, setHoverInfo, setImage
     let popupWindow = document.getElementsByClassName("control-panel")[0];
     if (popupWindow) {
       popupWindow.style.display = "none";
-    };
+    }
   };
 
   useEffect(() => {
     if (zoom >= 10) {
-      setInstruction("Click to explore the details of a single hexagonal area.");
+      setInstruction(
+        "Click to explore the details of a single hexagonal area."
+      );
     } else {
-      setInstruction("Please zoom in to level 10 to explore the details of a single hexagonal area.");
-    };
+      setInstruction(
+        "Please zoom in to level 10 to explore the details of a single hexagonal area."
+      );
+    }
   }, [zoom]);
 
   return (
     <>
-      <Button
-        className="basemapButton"
-        variant="secondary"
-        onClick={() => setSelectBasemap(!selectBasemap)}
-      >
-        <FiMap />
-      </Button>
+      {!activeSidebar && (
+        <Button
+          className="basemapButton"
+          variant="secondary"
+          onClick={() => setSelectBasemap(!selectBasemap)}
+        >
+          <FiMap />
+        </Button>
+      )}
       {selectBasemap && (
         <div className="basemapSwitch">
           <MultiSwitch
@@ -159,7 +176,7 @@ const Map = ({ weightsDone, data, zoom, setZoom, opacity, setHoverInfo, setImage
                     "case",
                     ["boolean", ["feature-state", "hover"], false],
                     1,
-                    parseInt(opacity)/100,
+                    parseInt(opacity) / 100,
                   ],
                 }}
               />

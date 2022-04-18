@@ -11,13 +11,15 @@ import Sidebar from "./Sidebar";
 import Map from "./Map";
 import "./main.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faCamera } from "@fortawesome/free-solid-svg-icons";
 
 const arrowIcon = (
   <FontAwesomeIcon icon={faArrowRight} color="white" size="lg" />
 );
 
-const Main = ({ userLoggedIn }) => {
+const cameraIcon = <FontAwesomeIcon icon={faCamera} />;
+
+const Main = ({ setAlertText, setAlertType, setView, view, userLoggedIn }) => {
   const [activeSidebar, setActiveSidebar] = useState(true);
   const [data, setData] = useState(null);
   const [zoom, setZoom] = useState(5.5);
@@ -87,6 +89,10 @@ const Main = ({ userLoggedIn }) => {
         setActiveSidebar={setActiveSidebar}
         setWeightsDone={setWeightsDone}
         setData={setData}
+        setAlertType={setAlertType}
+        setAlertText={setAlertText}
+        setView={setView}
+        view={view}
       />
       <div style={{ height: "100%", position: "relative" }} className="content">
         <Button
@@ -98,19 +104,24 @@ const Main = ({ userLoggedIn }) => {
         >
           {arrowIcon}
         </Button>
-        <div id="floatingWindow" className="window">
-          <p>
-            <em>{instruction}</em>
-          </p>
-          <p>Current Zoom Level : {zoom}</p>
-          <label>Layer Opacity (%) :</label>
-          <RangeSlider
-            step={1}
-            value={opacity}
-            onChange={(e) => setOpacity(e.target.value)}
-            variant="secondary"
-          />
-        </div>
+        {!activeSidebar && (
+          <div id="floatingWindow" className="window">
+            <p>
+              <em>{instruction}</em>
+            </p>
+            <p>Current Zoom Level : {zoom}</p>
+            <label>Layer Opacity (%) :</label>
+            <RangeSlider
+              step={1}
+              value={opacity}
+              onChange={(e) => setOpacity(e.target.value)}
+              variant="secondary"
+            />{" "}
+            <Button id="snapshotButton" variant="secondary" onClick={getImage}>
+              {cameraIcon}
+            </Button>
+          </div>
+        )}
         <Map
           weightsDone={weightsDone}
           data={data}
@@ -121,14 +132,13 @@ const Main = ({ userLoggedIn }) => {
           setImageURL={setImageURL}
           setInstruction={setInstruction}
           mapRef={mapRef}
+          activeSidebar={activeSidebar}
         />
         <ControlPanel
           id="popupWindow"
           hoverInfo={hoverInfo ? hoverInfo : { hexagon: {} }}
         ></ControlPanel>
-        <Button id="snapshotButton" variant="secondary" onClick={getImage}>
-          <RiScreenshot2Fill /> &nbsp; Export Current View
-        </Button>
+
         <Modal centered show={show} onHide={handleClose} size="lg">
           <Modal.Header closeButton>
             <Modal.Title>Current Map View</Modal.Title>
