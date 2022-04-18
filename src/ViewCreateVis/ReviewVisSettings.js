@@ -404,7 +404,7 @@ const ReviewVisSettings = ({
             {arrowIcon} Edit Data Measures
           </Button>
           <Button
-            variant="dark"
+            variant="primary"
             onClick={() => {
               async function calculateNewData() {
                 setWeightsDone(false);
