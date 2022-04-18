@@ -96,7 +96,7 @@ const Main = ({ setAlertText, setAlertType, setView, view, userLoggedIn }) => {
       />
       <div style={{ height: "100%", position: "relative" }} className="content">
         <Button
-          style={{ position: "fixed", top: "65px", left: "3px", zIndex: 1 }}
+          id="open-sidebar"
           variant="secondary"
           onClick={() => {
             setActiveSidebar(true);

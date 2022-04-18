@@ -23,12 +23,12 @@
 
 #dismiss {
   width: 35px;
-  height: 35px;
+  height: 40px;
   line-height: 35px;
   text-align: center;
   background: #3b3b3b;
   position: absolute;
-  top: 10px;
+  top: 20px;
   right: 10px;
   cursor: pointer;
   -webkit-transition: all 0.3s;
@@ -76,6 +76,42 @@
 
 .smaller-text {
   font-size: 14px !important;
+}
+
+.sum-text {
+  font-size: 24px;
+}
+
+.error-text {
+  color: red;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+  background: rgb(255, 193, 193);
+  margin-left: 15px;
+}
+
+.total-text {
+  margin-left: 20px;
+}
+
+.bug-icon-btn {
+  z-index: 9;
+  background: none !important;
+  min-width: initial !important;
+  border: none !important;
+}
+
+.mapboxgl-ctrl-top-right {
+  top: 65px !important;
+}
+
+.mapboxgl-ctrl-attrib-inner {
+  display: none;
+}
+
+.mapboxgl-ctrl-group button {
+  width: 42px !important;
 }
 
 /* ---------------------------------------------------
@@ -153,4 +189,120 @@
   top: 300px;
   right: 20px;
   z-index: 4;
+}
+
+#open-sidebar {
+  position: fixed;
+  min-width: 40px;
+  top: 60px;
+  left: 3px;
+  z-index: 1;
+}
+
+.hide {
+  display: none;
+}
+
+.glow {
+  display: inline-block;
+  width: initial !important;
+  padding: 10px;
+  text-decoration: none;
+  margin-top: 30px;
+  border: none;
+  outline: none;
+  color: #fff;
+  position: relative;
+  z-index: 0;
+}
+
+.glow:hover {
+  text-decoration: none;
+}
+
+.glow:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing 10s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+.glow:before {
+  opacity: 1;
+}
+
+.glow:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #292a2b;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.add-assess-cont {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+
+#vis-card {
+  margin-top: 50px;
+}
+
+#control-panel-dismiss {
+  color: white;
+  font-weight: bolder;
+  width: 35px;
+  height: 40px;
+  line-height: 35px;
+  text-align: center;
+  background: none;
+  position: fixed;
+  top: 55px;
+  right: 0;
+  cursor: pointer;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+#control-panel-dismiss:hover {
+  color: #6f7072;
 }

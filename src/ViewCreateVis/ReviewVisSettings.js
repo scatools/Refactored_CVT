@@ -48,7 +48,35 @@ const ReviewVisSettings = ({
 
   return (
     <>
-      <Container id="assessment-card" className="card-body">
+      <Container id="vis-card" className="card-body">
+        Goal Weights:
+        <Table striped bordered hover size="sm">
+          <thead>
+            <tr>
+              <th>RESTORE Council Goal</th>
+              <th>
+                Goal Weights &nbsp;
+                <GoInfo data-tip data-for="goalWeights" />
+                <ReactTooltip id="goalWeights" type="dark">
+                  <span>
+                    Goal weights are set by users to emphasize specific RESTORE
+                    goals
+                  </span>
+                </ReactTooltip>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {RESTOREGoal.map((goal, idx) => {
+              return (
+                <tr key={idx}>
+                  <td>{goal}</td>
+                  <td>{Object.values(weights)[idx].weight}%</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
         Data Measure Weights Summary:
         <Table striped bordered hover size="sm">
           <thead>
@@ -367,34 +395,6 @@ const ReviewVisSettings = ({
               ))}
           </tbody>
         </Table>
-        Goal Weights:
-        <Table striped bordered hover size="sm">
-          <thead>
-            <tr>
-              <th>RESTORE Council Goal</th>
-              <th>
-                Goal Weights &nbsp;
-                <GoInfo data-tip data-for="goalWeights" />
-                <ReactTooltip id="goalWeights" type="dark">
-                  <span>
-                    Goal weights are set by users to emphasize specific RESTORE
-                    goals
-                  </span>
-                </ReactTooltip>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {RESTOREGoal.map((goal, idx) => {
-              return (
-                <tr key={idx}>
-                  <td>{goal}</td>
-                  <td>{Object.values(weights)[idx].weight}%</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
         <div className="d-flex justify-content-between">
           <Button
             style={{ float: "left" }}
@@ -414,20 +414,6 @@ const ReviewVisSettings = ({
                   low: 0.33,
                 };
 
-                // const intermediate=	Object.entries(weights)
-                // 		.filter(goal=>goal[1].weight!==0)
-                // 		.map(goal=>
-                // 			['*',goal[1].weight/100,["+",
-                // 				goal[1].selected.map(measure=>{
-                // 					if(measure.utility==='1'){
-                // 						console.log( ['*',weightList[measure.weight],['number',['get', measure.value]]])
-                // 						return ['*',weightList[measure.weight],['number',['get', measure.value]]]
-                // 					}else{
-                // 						return ['+',1, ['*',-1*weightList[measure.weight],['number',['get', measure.value]]]]
-                // 					}
-                // 				})
-                // 			]]
-                // 		);
                 const intermediate = Object.entries(weights)
                   .filter((goal) => goal[1].weight !== 0)
                   .map((goal) => [
@@ -440,7 +426,6 @@ const ReviewVisSettings = ({
                         0,
                         ...goal[1].selected.map((measure) => {
                           if (measure.utility === "1") {
-                            // console.log( ['*',weightList[measure.weight],['number',['get', measure.value]]])
                             return [
                               "*",
                               weightList[measure.weight],

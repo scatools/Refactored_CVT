@@ -39,11 +39,6 @@ const SelectDataMeasures = ({ setView }) => {
   const handleChange = (value, name, label, type) => {
     dispatch(changeMeasuresWeight(value, name, label, type));
   };
-  // *************         Causing bug when removing datameasures to 0            **************//
-  // const handleWeights = (value, goal) => {
-  //   const newValue = Number(value) > 100 ? 100 : Number(value);
-  //   dispatch(changeGoalWeights(newValue, goal));
-  // };
 
   const [options, setOptions] = useState({
     hab: [
