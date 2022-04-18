@@ -28,10 +28,32 @@ import {
 import { GoInfo } from "react-icons/go";
 import ReactTooltip from "react-tooltip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faExclamationCircle,
+  faRedo,
+} from "@fortawesome/free-solid-svg-icons";
 
 const arrowIcon = (
   <FontAwesomeIcon icon={faArrowLeft} color="white" size="lg" />
+);
+
+const redoIcon = (
+  <FontAwesomeIcon
+    icon={faRedo}
+    color="red"
+    size="lg"
+    flip="horizontal"
+    style={{ paddingLeft: "30px;" }}
+  />
+);
+
+const alertIcon = (
+  <FontAwesomeIcon
+    icon={faExclamationCircle}
+    color="red"
+    style={{ margin: "0 5px;" }}
+  />
 );
 
 const RESTOREGoal = [
@@ -52,8 +74,14 @@ const Sidebar = ({
   setAlertType,
   setView,
 }) => {
+  const [confirmShow, setConfirmShow] = useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
+  const resetButton = () => {
+    window.location.reload(true);
+  };
+  const confirmClose = () => setConfirmShow(false);
+  const showConfirm = () => setConfirmShow(true);
 
   const handleNext = () => {
     setView("weights");
@@ -113,7 +141,36 @@ const Sidebar = ({
               setActiveSidebar={setActiveSidebar}
             />
           )}
+          {view === "weights" && (
+            <Button
+              id="resetButton"
+              variant="dark"
+              style={{ float: "left" }}
+              onClick={showConfirm}
+            >
+              Start Over {redoIcon}
+            </Button>
+          )}
         </div>
+        <Modal show={confirmShow} onHide={confirmClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>
+              <h1>WAIT{alertIcon}</h1>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>This will delete everything you've done so far.</p>
+            <p>Are you sure you'd like to continue?</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={confirmClose}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={resetButton}>
+              Yes, start over.
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <Modal show={show} onHide={handleClose} centered>
           <Modal.Header closeButton>
             <Modal.Title>Oops, Something went wrong!</Modal.Title>
