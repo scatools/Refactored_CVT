@@ -10,8 +10,6 @@ import ControlPanel from "./ControlPanel";
 import Sidebar from "./Sidebar";
 import Map from "./Map";
 import "./main.css";
-import Sidebar from "./Sidebar";
-import ControlPanel from "./ControlPanel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
@@ -19,7 +17,7 @@ const arrowIcon = (
   <FontAwesomeIcon icon={faArrowRight} color="white" size="lg" />
 );
 
-const Main = () => {
+const Main = ({ userLoggedIn }) => {
   const [activeSidebar, setActiveSidebar] = useState(true);
   const [data, setData] = useState(null);
   const [zoom, setZoom] = useState(5.5);

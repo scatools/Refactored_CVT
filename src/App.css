@@ -17,11 +17,8 @@
   top: 36px;
   width: 500px;
   right: -500px;
-<<<<<<< HEAD
   padding: 20px 0;
-=======
   z-index: 10;
->>>>>>> 49e248e50506ee0f293eafea14cefe97279b7fc2
   transition: all 0.3s;
 }
 
