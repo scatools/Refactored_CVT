@@ -33,7 +33,7 @@ const NavBar = ({ loggedIn, userLoggedIn }) => {
 						Conservation Planning Inventory Tool (CIT)
 					</NavDropdown.Item>
 					<NavDropdown.Item
-						href="http://sca-cpt-frontend.herokuapp.com/"
+						href="http://sca-cpt.herokuapp.com/"
 						target="_blank"
 					>
 						Conservation Prioritization Tool (CPT)
